@@ -1,0 +1,314 @@
+.about-hero {
+    padding: 90px 0;
+    background: linear-gradient(135deg, #edf7ee, #f8fbf6);
+}
+
+.about-hero-content {
+    max-width: 950px;
+    margin: auto;
+}
+
+.about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #198754;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.about-hero h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.about-hero p {
+    max-width: 800px;
+    margin: auto;
+    color: #5f6b63;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+
+/* INTRO */
+
+.about-intro {
+    padding: 90px 0;
+    background: #ffffff;
+}
+
+.about-icon-box {
+    width: 280px;
+    height: 280px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background: linear-gradient(
+        135deg,
+        #dff3e3,
+        #f2f9f2
+    );
+
+    box-shadow: 0 15px 40px rgba(25, 135, 84, 0.10);
+}
+
+.about-icon-box i {
+    font-size: 7rem;
+    color: #198754;
+}
+
+.section-label {
+    display: inline-block;
+    color: #198754;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.about-intro h2,
+.about-services h2,
+.about-process h2,
+.about-vision h2,
+.about-mission h2 {
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.about-intro p {
+    color: #5f6b63;
+    line-height: 1.8;
+}
+
+
+/* SERVICES */
+
+.about-services {
+    padding: 90px 0;
+    background: #f5f8f2;
+}
+
+.section-description {
+    color: #6c757d;
+}
+
+.about-service-card {
+    height: 100%;
+    padding: 35px 30px;
+    background: #ffffff;
+    border: 1px solid #e5ebe5;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.about-service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.about-service-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: #e8f5eb;
+    color: #198754;
+    font-size: 1.5rem;
+    margin-bottom: 22px;
+}
+
+.about-service-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 14px;
+}
+
+.about-service-card p {
+    color: #6c757d;
+    line-height: 1.7;
+}
+
+
+/* MISSION */
+
+.about-mission {
+    padding: 90px 0;
+    background: #ffffff;
+}
+
+.mission-box {
+    max-width: 900px;
+    margin: auto;
+}
+
+.mission-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #e8f5eb;
+    color: #198754;
+    font-size: 1.5rem;
+}
+
+.about-mission p {
+    max-width: 750px;
+    margin: auto;
+    color: #6c757d;
+    line-height: 1.8;
+}
+
+
+.about-process {
+    padding: 90px 0;
+    background: #f5f8f2;
+}
+
+.process-card {
+    height: 100%;
+    padding: 30px 25px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #e5ebe5;
+    transition: all 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.process-card > span {
+    display: block;
+    color: #198754;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.process-card > i {
+    font-size: 1.8rem;
+    color: #198754;
+    margin-bottom: 18px;
+}
+
+.process-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.process-card p {
+    color: #6c757d;
+    line-height: 1.7;
+}
+
+
+/* FUTURE VISION */
+
+.about-vision {
+    padding: 90px 0;
+    background: #ffffff;
+}
+
+.about-vision p {
+    color: #6c757d;
+    line-height: 1.8;
+}
+
+.vision-card {
+    padding: 30px;
+    background: #f5f8f2;
+    border-radius: 20px;
+    border: 1px solid #e5ebe5;
+}
+
+.vision-card div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 0;
+    border-bottom: 1px solid #dfe7df;
+}
+
+.vision-card div:last-child {
+    border-bottom: none;
+}
+
+.vision-card i {
+    width: 35px;
+    color: #198754;
+    font-size: 1.2rem;
+}
+
+.vision-card span {
+    font-weight: 500;
+}
+
+
+/* CTA */
+
+.about-cta {
+    padding: 80px 0;
+    background: #f5f8f2;
+}
+
+.cta-box {
+    max-width: 850px;
+    margin: auto;
+}
+
+.cta-box > i {
+    font-size: 2.2rem;
+    color: #198754;
+    margin-bottom: 15px;
+}
+
+.cta-box h2 {
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.cta-box p {
+    color: #6c757d;
+    margin-bottom: 25px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .about-hero {
+        padding: 60px 20px;
+    }
+
+    .about-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .about-intro,
+    .about-services,
+    .about-mission,
+    .about-process,
+    .about-vision {
+        padding: 65px 20px;
+    }
+
+    .about-icon-box {
+        width: 220px;
+        height: 220px;
+    }
+
+    .about-icon-box i {
+        font-size: 5rem;
+    }
+}

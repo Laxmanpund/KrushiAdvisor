@@ -76,6 +76,14 @@ app.get("/advisors/rajesh-patil", (req, res) => {
     res.render("pages/advisor-profile");
 });
 
+app.get("/about", (req, res) => {
+    res.render("pages/about");
+});
+
+app.get("/contact", (req, res) => {
+    res.render("pages/contact");
+});
+
 app.listen(7426, () => {
     console.log("server is listening port 7426");
 });
