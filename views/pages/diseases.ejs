@@ -1,232 +1,85 @@
 <% layout("/layouts/boilerplate") %>
 
 <section class="disease-section">
-
     <div class="container">
 
         <div class="section-heading text-center">
-
-            <p class="section-subtitle">CROP HEALTH</p>
-
-            <h1>Disease & Pest Guide</h1>
-
+            <p class="section-subtitle">पीक आरोग्य</p>
+            <h1>रोग व किडींचे मार्गदर्शन</h1>
             <p class="section-description">
-                Identify common crop diseases and pests and learn
-                about their symptoms, causes and general management.
+                पिकांवरील सामान्य रोग व किडी ओळखा आणि
+                त्यांची लक्षणे, कारणे व सामान्य व्यवस्थापनाबद्दल
+                माहिती जाणून घ्या.
             </p>
-
         </div>
 
         <div class="disease-search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search disease or pest...">
+                <input type="text" class="form-control" placeholder="रोग किंवा कीड शोधा...">
                 <button class="btn btn-success">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    Search
+                    शोधा
                 </button>
-
             </div>
         </div>
 
         <div class="disease-filters text-center">
-
-            <button class="btn btn-success">
-                All
-            </button>
-
-            <button class="btn btn-outline-success">
-                Diseases
-            </button>
-
-            <button class="btn btn-outline-success">
-                Pests
-            </button>
-
-            <button class="btn btn-outline-success">
-                Wheat
-            </button>
-
-            <button class="btn btn-outline-success">
-                Cotton
-            </button>
-
-            <button class="btn btn-outline-success">
-                Soybean
-            </button>
-
+            <button class="btn btn-success">सर्व</button>
+            <button class="btn btn-outline-success">रोग</button>
+            <button class="btn btn-outline-success">किडी</button>
+            <button class="btn btn-outline-success">गहू</button>
+            <button class="btn btn-outline-success">कापूस</button>
+            <button class="btn btn-outline-success">सोयाबीन</button>
         </div>
-
-
-        <!-- Disease Cards -->
 
         <div class="row g-4 mt-4">
-            <div class="col-md-6 col-lg-4">
+            <% diseases.forEach(disease => { %>
+                <div class="col-md-6 col-lg-4">
 
-                <div class="disease-card">
-
-                    <div class="disease-icon">
-                        <i class="fa-solid fa-virus"></i>
-                    </div>
-
-                    <div class="disease-content">
-
-                        <span class="disease-type">Disease</span>
-                        <h3>Wheat Rust</h3>
-                        <p>
-                            A fungal disease that can affect wheat
-                            and reduce crop growth and productivity.
-                        </p>
-
-                        <div class="affected-crop">
-
-                            <i class="fa-solid fa-seedling"></i>
-
-                            Affected Crop:
-                            <strong>Wheat</strong>
-
+                    <div class="disease-card">
+                        <div class="disease-icon">
+                            <% if (disease.type === "कीड") { %>
+                                <i class="fa-solid fa-bug"></i>
+                            <% } else { %>
+                                <i class="fa-solid fa-virus"></i>
+                            <% } %>
                         </div>
 
-                        <a href="/diseases/wheat-rust">
-                            View Details
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        <div class="disease-content">
+                            <span class="disease-type"><%= disease.type %></span>
+                            <h3><%= disease.name %></h3>
+                            <p><%= disease.description %></p>
 
-                    </div>
-                </div>
-            </div>
+                            <div class="affected-crop">
+                                <i class="fa-solid fa-seedling"></i>
+                                प्रभावित पीक:
+                                <strong><%= disease.crop %></strong>
+                            </div>
 
-
-            <!-- Bollworm -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="disease-card">
-
-                    <div class="disease-icon pest-icon">
-                        <i class="fa-solid fa-bug"></i>
-                    </div>
-
-                    <div class="disease-content">
-
-                        <span class="disease-type">Pest</span>
-                        <h3>Cotton Bollworm</h3>
-                        <p>
-                            A common cotton pest that can damage
-                            reproductive parts of the crop.
-                        </p>
-
-                        <div class="affected-crop">
-
-                            <i class="fa-solid fa-seedling"></i>
-
-                            Affected Crop:
-                            <strong>Cotton</strong>
-
+                            <a href="/diseases/<%= disease._id %>">
+                                अधिक माहिती
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
                         </div>
-
-                        <a href="/diseases/cotton-bollworm">
-                            View Details
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
                     </div>
                 </div>
-            </div>
-
-
-            <!-- Powdery Mildew -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="disease-card">
-
-                    <div class="disease-icon">
-                        <i class="fa-solid fa-virus"></i>
-                    </div>
-
-                    <div class="disease-content">
-                        <span class="disease-type">Disease</span>
-                        <h3>Powdery Mildew</h3>
-                        <p>
-                            A fungal disease that can appear as
-                            powder-like growth on plant surfaces.
-                        </p>
-
-                        <div class="affected-crop">
-
-                            <i class="fa-solid fa-seedling"></i>
-
-                            Affected Crop:
-                            <strong>Multiple Crops</strong>
-
-                        </div>
-
-                        <a href="/diseases/powdery-mildew">
-                            View Details
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Soybean Pest -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="disease-card">
-
-                    <div class="disease-icon pest-icon">
-                        <i class="fa-solid fa-bug"></i>
-                    </div>
-
-                    <div class="disease-content">
-                        <span class="disease-type">Pest</span>
-                        <h3>Soybean Pod Borer</h3>
-                        <p>
-                            A pest that may affect soybean pods
-                            and impact seed development.
-                        </p>
-
-                        <div class="affected-crop">
-                            <i class="fa-solid fa-seedling"></i>
-
-                            Affected Crop:
-                            <strong>Soybean</strong>
-
-                        </div>
-
-                        <a href="/diseases/soybean-pod-borer">
-                            View Details
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
+            <% }) %>
         </div>
-
-
-        <!-- Advisor CTA -->
 
         <div class="disease-cta">
             <div>
-                <h2>Can't identify your crop problem?</h2>
+                <h2>तुमच्या पिकाची समस्या ओळखता येत नाही?</h2>
                 <p>
-                    Connect with an agriculture advisor for
-                    professional guidance.
+                    योग्य मार्गदर्शनासाठी कृषी सल्लागाराशी
+                    संपर्क साधा.
                 </p>
-
             </div>
 
             <a href="/advisors" class="btn btn-success">
-                Find an Advisor
+                कृषी सल्लागार शोधा
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
 
     </div>
-
 </section>

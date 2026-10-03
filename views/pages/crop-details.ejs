@@ -1,28 +1,40 @@
 <% layout("/layouts/boilerplate") %>
 
 <section class="crop-details-section">
-
     <div class="container">
+
         <div class="crop-breadcrumb">
-            <a href="/">Home</a>
+            <a href="/">मुख्यपृष्ठ</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <a href="/crops">Crops</a>
+            <a href="/crops">पिके</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <span>Wheat</span>
+            <span><%= crop.name %></span>
         </div>
 
         <div class="crop-details-header">
-
             <div class="crop-details-icon">
-                <i class="fa-solid fa-wheat-awn"></i>
+                <% if (crop.name === "गहू") { %>
+                    <i class="fa-solid fa-wheat-awn"></i>
+                <% } else if (crop.name === "कापूस") { %>
+                    <i class="fa-solid fa-seedling"></i>
+                <% } else if (crop.name === "सोयाबीन") { %>
+                    <i class="fa-solid fa-leaf"></i>
+                <% } else if (crop.name === "भात") { %>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                <% } else { %>
+                    <i class="fa-solid fa-seedling"></i>
+                <% } %>
             </div>
 
             <div>
-                <span class="crop-category">Rabi Crop</span>
-                <h1>Wheat</h1>
+                <span class="crop-category"><%= crop.category %></span>
+                <h1><%= crop.name %></h1>
                 <p>
-                    Wheat is an important cereal crop cultivated
-                    mainly during the Rabi season.
+                    <%= crop.name %>
+                    हे एक महत्त्वाचे कृषी पीक असून
+                    त्याची लागवड योग्य हंगाम,
+                    माती, सिंचन आणि पीक व्यवस्थापनानुसार
+                    केली जाते.
                 </p>
             </div>
         </div>
@@ -30,38 +42,28 @@
         <div class="crop-info-section">
             <h2>
                 <i class="fa-solid fa-circle-info"></i>
-                Overview
+                पिकाची ओळख
             </h2>
             <p>
-                Wheat is one of the major cereal crops. It requires
-                suitable soil, appropriate temperature, adequate
-                irrigation and proper nutrient management for good growth.
+                <%= crop.name %>
+                पिकाच्या चांगल्या वाढीसाठी योग्य माती,
+                अनुकूल हवामान, आवश्यक सिंचन आणि
+                संतुलित अन्नद्रव्य व्यवस्थापन महत्त्वाचे आहे.
             </p>
-
         </div>
-
-
-        <!-- Soil & Climate -->
 
         <div class="row g-4">
             <div class="col-md-6">
-
                 <div class="info-card">
+
                     <div class="info-icon">
                         <i class="fa-solid fa-mountain"></i>
                     </div>
 
-                    <h3>Suitable Soil</h3>
-                    <p>
-                        Well-drained loamy and clay-loam soils
-                        with suitable fertility are generally
-                        suitable for wheat cultivation.
-                    </p>
-
+                    <h3>योग्य माती</h3>
+                    <p><%= crop.soil %></p>
                 </div>
-
             </div>
-
 
             <div class="col-md-6">
                 <div class="info-card">
@@ -70,129 +72,104 @@
                         <i class="fa-solid fa-temperature-half"></i>
                     </div>
 
-                    <h3>Climate</h3>
+                    <h3>हवामान</h3>
                     <p>
-                        Wheat generally performs well under cool
-                        conditions during the growing season.
+                        <%= crop.name %>
+                        पिकासाठी योग्य तापमान आणि
+                        स्थानिक हवामानानुसार लागवड व
+                        पीक व्यवस्थापन करणे आवश्यक आहे.
                     </p>
-
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- Sowing -->
-
         <div class="crop-info-section">
-
             <h2>
                 <i class="fa-solid fa-seedling"></i>
-                Sowing Information
+                पेरणीची माहिती
             </h2>
 
             <div class="info-grid">
-
                 <div>
-                    <span>Season</span>
-                    <strong>Rabi</strong>
+                    <span>हंगाम</span>
+                    <strong><%= crop.season %></strong>
                 </div>
 
                 <div>
-                    <span>Typical Sowing Period</span>
-                    <strong>October – November</strong>
+                    <span>पेरणीचा कालावधी</span>
+                    <strong><%= crop.sowing %></strong>
                 </div>
 
                 <div>
-                    <span>Method</span>
-                    <strong>Line / Drill Sowing</strong>
+                    <span>पीक प्रकार</span>
+                    <strong><%= crop.category %></strong>
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- Irrigation -->
-
         <div class="crop-info-section">
-
             <h2>
                 <i class="fa-solid fa-droplet"></i>
-                Irrigation
+                सिंचन व्यवस्थापन
             </h2>
-
-            <p>
-                Irrigation should be planned according to soil,
-                weather conditions and crop growth stage. Critical
-                growth stages should receive appropriate moisture.
-            </p>
-
+            <p><%= crop.irrigation %></p>
         </div>
 
-
-        <!-- Fertilizer -->
-
         <div class="crop-info-section">
-
             <h2>
                 <i class="fa-solid fa-flask"></i>
-                Fertilizer & Nutrient Management
+                खत व अन्नद्रव्य व्यवस्थापन
             </h2>
-
-            <p>
-                Nutrient management should be based on soil testing
-                and recommended agricultural practices. Balanced
-                application of nutrients helps maintain healthy crop growth.
-            </p>
-
+            <p><%= crop.fertilizer %></p>
         </div>
 
-
-        <!-- Diseases -->
-
         <div class="crop-info-section">
-
             <h2>
                 <i class="fa-solid fa-bug"></i>
-                Common Diseases & Pests
+                सामान्य रोग व किडी
             </h2>
 
-            <div class="disease-list">
+            <% if (crop.commonDiseases && crop.commonDiseases.length > 0) { %>
+                <div class="disease-list">
 
-                <a href="/diseases">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    Rust
-                </a>
+                    <% crop.commonDiseases.forEach(disease => { %>
+                        <a href="/diseases">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            <%= disease %>
+                        </a>
+                    <% }) %>
+                </div>
 
-                <a href="/diseases">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    Powdery Mildew
-                </a>
-
-            </div>
-
+            <% } else { %>
+                <p>
+                    या पिकासाठी सध्या रोग व किडींची
+                    माहिती उपलब्ध नाही.
+                </p>
+            <% } %>
         </div>
 
         <div class="crop-info-section">
-            <h2><i class="fa-solid fa-wheat-awn"></i>Harvesting</h2>
-            <p>
-                Harvesting should be carried out when the crop reaches
-                appropriate maturity and grain moisture conditions.
-            </p>
+            <h2>
+                <i class="fa-solid fa-wheat-awn"></i>
+                काढणी
+            </h2>
+            <p><%= crop.harvesting %></p>
         </div>
 
         <div class="advisor-cta">
             <div>
-                <h2>Need help with your crop?</h2>
+                <h2>तुमच्या पिकासाठी मार्गदर्शन हवे आहे का?</h2>
                 <p>
-                    Connect with an agriculture advisor for
-                    personalized guidance.
+                    तुमच्या शेतीच्या गरजेनुसार
+                    वैयक्तिक मार्गदर्शनासाठी
+                    कृषी सल्लागार शोधा.
                 </p>
             </div>
 
-            <a href="/advisors" class="btn btn-success">Find an Advisor<i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/advisors" class="btn btn-success">
+                कृषी सल्लागार शोधा
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
 
     </div>

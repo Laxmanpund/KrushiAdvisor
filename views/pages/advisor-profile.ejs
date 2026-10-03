@@ -4,11 +4,11 @@
     <div class="container">
 
         <div class="advisor-breadcrumb">
-            <a href="/">Home</a>
+            <a href="/">मुख्यपृष्ठ</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <a href="/advisors">Find Advisor</a>
+            <a href="/advisors">कृषी सल्लागार</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <span>Advisor Profile</span>
+            <span><%= advisor.name %></span>
         </div>
 
         <div class="advisor-profile-header">
@@ -17,78 +17,102 @@
             </div>
 
             <div class="advisor-profile-main">
-                <span class="profile-status">
-                    <i class="fa-solid fa-circle"></i>
-                    Available for Consultation
-                </span>
+                <% if (advisor.isAvailable) { %>
+                    <span class="profile-status">
+                        <i class="fa-solid fa-circle"></i>
+                        सल्ल्यासाठी उपलब्ध
+                    </span>
+                <% } else { %>
+                    <span class="profile-status">
+                        <i class="fa-solid fa-circle"></i>
+                        सध्या अनुपलब्ध
+                    </span>
+                <% } %>
 
-                <h1>Dr. Rajesh Patil</h1>
-                <p class="profile-qualification">M.Sc. Agriculture</p>
+                <h1><%= advisor.name %></h1>
+                <p class="profile-qualification"><%= advisor.qualification %></p>
+
 
                 <div class="profile-meta">
-                    <span><i class="fa-solid fa-briefcase"></i>8 Years Experience</span>
-                    <span><i class="fa-solid fa-location-dot"></i>Maharashtra</span>
+                    <span>
+                        <i class="fa-solid fa-briefcase"></i>
+                        <%= advisor.experience %> वर्षांचा अनुभव
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= advisor.location %>
+                    </span>
                 </div>
             </div>
 
             <div class="profile-book">
                 <div class="profile-rating">
                     <i class="fa-solid fa-star"></i>
-                    <strong>4.8</strong>
-                    <span>24 Reviews</span>
+                    <strong><%= advisor.rating %></strong>
+                    <span>अभिप्राय</span>
                 </div>
 
-                <strong class="profile-fee">₹500</strong>
-                <span class="fee-label">per consultation</span>
-                <a href="/advisors/rajesh-patil/book" class="btn btn-success">Book Consultation<i class="fa-solid fa-calendar-check"></i></a>
+                <strong class="profile-fee">₹<%= advisor.consultationFee %></strong>
+                <span class="fee-label">प्रति सल्ला</span>
+
+                <% if (advisor.isAvailable) { %>
+                    <a href="/advisors/<%= advisor._id %>/book" class="btn btn-success">
+                        सल्ला बुक करा
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </a>
+                <% } else { %>
+                    <button class="btn btn-secondary" disabled>सध्या उपलब्ध नाही</button>
+                <% } %>
             </div>
         </div>
-
-        <!-- Main Profile Content -->
 
         <div class="row g-4 mt-1">
             <div class="col-lg-8">
 
                 <div class="profile-info-card">
-                    <h2><i class="fa-solid fa-user"></i>About the Advisor</h2>
-                    <p>
-                        Dr. Rajesh Patil is an agriculture professional
-                        with experience in crop management and soil
-                        science. He provides agricultural guidance
-                        based on crop conditions and farming practices.
-                    </p>
+                    <h2>
+                        <i class="fa-solid fa-user"></i>
+                        सल्लागाराबद्दल
+                    </h2>
+                    <p><%= advisor.about %></p>
                 </div>
 
                 <div class="profile-info-card">
-                    <h2><i class="fa-solid fa-lightbulb"></i>Areas of Expertise</h2>
+                    <h2>
+                        <i class="fa-solid fa-lightbulb"></i>
+                        कौशल्याची क्षेत्रे
+                    </h2>
 
                     <div class="profile-tags">
-                        <span>Crop Management</span>
-                        <span>Soil Science</span>
-                        <span>Irrigation</span>
-                        <span>Nutrient Management</span>
+                        <% advisor.expertise.forEach(skill => { %>
+                            <span><%= skill %></span>
+                        <% }) %>
                     </div>
                 </div>
 
+
                 <div class="profile-info-card">
-                    <h2><i class="fa-solid fa-briefcase"></i>Experience</h2>
+                    <h2>
+                        <i class="fa-solid fa-briefcase"></i>
+                        अनुभव
+                    </h2>
 
                     <div class="experience-item">
-                        <strong>Agriculture Advisor</strong>
-                        <span>2018 – Present</span>
-                        <p>
-                            Providing agricultural guidance and
-                            crop management support to farmers.
-                        </p>
+                        <strong>कृषी सल्लागार</strong>
+                        <span><%= advisor.experience %> वर्षांचा अनुभव</span>
+                        <p><%= advisor.experienceDescription %></p>
                     </div>
                 </div>
 
                 <div class="profile-info-card">
                     <div class="review-heading">
-                        <h2><i class="fa-solid fa-star"></i>Reviews</h2>
-                        <span>4.8 / 5</span>
+                        <h2>
+                            <i class="fa-solid fa-star"></i>
+                            अभिप्राय
+                        </h2>
+                        <span><%= advisor.rating %> / 5</span>
                     </div>
-
 
                     <div class="review">
                         <div class="review-user">
@@ -96,7 +120,7 @@
                         </div>
 
                         <div>
-                            <strong>Farmer</strong>
+                            <strong>शेतकरी</strong>
 
                             <div class="review-stars">
                                 <i class="fa-solid fa-star"></i>
@@ -107,8 +131,8 @@
                             </div>
 
                             <p>
-                                Helpful guidance and clear
-                                explanation about crop management.
+                                सल्लागाराची माहिती आणि मार्गदर्शन
+                                उपयुक्त असल्याचे अभिप्राय.
                             </p>
                         </div>
                     </div>
@@ -116,34 +140,41 @@
             </div>
 
             <div class="col-lg-4">
-
                 <div class="profile-side-card">
-                    <h3><i class="fa-solid fa-calendar-days"></i>Availability</h3>
+                    <h3>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        उपलब्धता
+                    </h3>
 
                     <div class="availability-item">
-                        <span>Monday – Friday</span>
-                        <strong>10:00 AM – 6:00 PM</strong>
+                        <span>सोमवार – शुक्रवार</span>
+                        <strong>सकाळी 10:00 – संध्याकाळी 6:00</strong>
                     </div>
 
                     <div class="availability-item">
-                        <span>Saturday</span>
-                        <strong>10:00 AM – 2:00 PM</strong>
+                        <span>शनिवार</span>
+                        <strong>सकाळी 10:00 – दुपारी 2:00</strong>
                     </div>
 
                     <div class="availability-item">
-                        <span>Sunday</span>
-                        <strong>Not Available</strong>
+                        <span>रविवार</span>
+                        <strong>उपलब्ध नाही</strong>
                     </div>
                 </div>
 
                 <div class="profile-side-card consultation-card">
-
-                    <h3>Need Agricultural Guidance?</h3>
+                    <h3>कृषी मार्गदर्शन हवे आहे?</h3>
                     <p>
-                        Book a consultation with this advisor
-                        to discuss your farming-related questions.
+                        तुमच्या शेतीशी संबंधित प्रश्नांवर
+                        चर्चा करण्यासाठी या सल्लागारासोबत
+                        सल्लामसलत बुक करा.
                     </p>
-                    <a href="/advisors/rajesh-patil/book" class="btn btn-success w-100">Book Consultation</a>
+
+                    <% if (advisor.isAvailable) { %>
+                        <a href="/advisors/<%= advisor._id %>/book" class="btn btn-success w-100">सल्ला बुक करा</a>
+                    <% } else { %>
+                        <button class="btn btn-secondary w-100" disabled>सध्या उपलब्ध नाही</button>
+                    <% } %>
                 </div>
             </div>
         </div>

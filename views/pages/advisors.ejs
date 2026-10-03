@@ -4,199 +4,122 @@
     <div class="container">
 
         <div class="section-heading text-center">
-            <p class="section-subtitle">AGRICULTURE EXPERTS</p>
-            <h1>Find an Agriculture Advisor</h1>
+            <p class="section-subtitle">कृषी तज्ज्ञ</p>
+            <h1>कृषी सल्लागार शोधा</h1>
             <p class="section-description">
-                Connect with agriculture advisors based on their
-                expertise, experience and consultation services.
+                सल्लागारांचे कौशल्य, अनुभव आणि सल्ला सेवेनुसार
+                योग्य कृषी सल्लागार शोधा.
             </p>
         </div>
 
         <div class="advisor-search">
-
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search advisor or expertise...">
-                <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                <input type="text" class="form-control" placeholder="सल्लागार किंवा कौशल्य शोधा...">
+                <button class="btn btn-success">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    शोधा
+                </button>
             </div>
         </div>
 
         <div class="advisor-filters">
             <select class="form-select">
-                <option selected>Location</option>
-                <option>Maharashtra</option>
-                <option>Madhya Pradesh</option>
-                <option>Karnataka</option>
-            </select>
-
-
-            <select class="form-select">
-                <option selected>Expertise</option>
-                <option>Crop Management</option>
-                <option>Plant Disease</option>
-                <option>Soil Management</option>
-                <option>Irrigation</option>
+                <option selected>ठिकाण</option>
+                <option>महाराष्ट्र</option>
+                <option>मध्य प्रदेश</option>
+                <option>कर्नाटक</option>
             </select>
 
             <select class="form-select">
-                <option selected>Experience</option>
-                <option>1+ Years</option>
-                <option>5+ Years</option>
-                <option>10+ Years</option>
+                <option selected>कौशल्य</option>
+                <option>पीक व्यवस्थापन</option>
+                <option>वनस्पती रोग</option>
+                <option>मृदा विज्ञान</option>
+                <option>माती व्यवस्थापन</option>
+                <option>कीड व्यवस्थापन</option>
+                <option>सिंचन व्यवस्थापन</option>
             </select>
 
             <select class="form-select">
-                <option selected>Consultation Fee</option>
-                <option>
-                    Under ₹500
-                </option>
-                <option>
-                    ₹500 - ₹1000
-                </option>
-                <option>
-                    Above ₹1000
-                </option>
+                <option selected>अनुभव</option>
+                <option>1+ वर्षे</option>
+                <option>5+ वर्षे</option>
+                <option>10+ वर्षे</option>
+            </select>
+
+            <select class="form-select">
+                <option selected>सल्ला शुल्क</option>
+                <option>₹500 पेक्षा कमी</option>
+                <option>₹500 - ₹1000</option>
+                <option>₹1000 पेक्षा जास्त</option>
             </select>
         </div>
 
         <div class="advisor row g-4 mt-4">
+            <% if (advisors.length > 0) { %>
+                <% advisors.forEach(advisor => { %>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="advisor-card">
 
-            <!-- Advisor 1 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="advisor-card">
+                            <div class="advisor-photo">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
 
-                    <div class="advisor-photo">
-                        <i class="fa-solid fa-user"></i>
+                            <div class="advisor-content">
+                                <span class="advisor-status">
+                                    <% if (advisor.isAvailable) { %>
+                                        <i class="fa-solid fa-circle"></i>
+                                        उपलब्ध
+                                    <% } else { %>
+                                        <i class="fa-solid fa-circle"></i>
+                                        सध्या अनुपलब्ध
+                                    <% } %>
+                                </span>
+
+                                <h3><%= advisor.name %></h3>
+                                <p class="advisor-qualification"><%= advisor.qualification %></p>
+
+                                <div class="advisor-expertise">
+                                    <% advisor.expertise.forEach(skill => { %>
+                                        <span><%= skill %></span>
+                                    <% }) %>
+                                </div>
+
+                                <div class="advisor-meta">
+                                    <span>
+                                        <i class="fa-solid fa-briefcase"></i>
+                                        <%= advisor.experience %> वर्षे
+                                    </span>
+                                    <span>
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <%= advisor.location %>
+                                    </span>
+                                </div>
+
+                                <div class="advisor-bottom">
+                                    <span class="advisor-rating">
+                                        <i class="fa-solid fa-star"></i>
+                                        <%= advisor.rating %>
+                                    </span>
+                                    <strong>₹<%= advisor.consultationFee %> / सल्ला</strong>
+                                </div>
+
+                                <a href="/advisors/<%= advisor._id %>" class="btn btn-outline-success w-100 mt-3">प्रोफाइल पहा</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="advisor-content">
-                        <span class="advisor-status">
-                            <i class="fa-solid fa-circle"></i>
-                            Available
-                        </span>
+                <% }) %>
 
-                        <h3>Dr. Rajesh Patil</h3>
-                        <p class="advisor-qualification">M.Sc. Agriculture</p>
-
-                        <div class="advisor-expertise">
-                            <span>Crop Management</span>
-                            <span>Soil Science</span>
-                        </div>
-
-                        <div class="advisor-meta">
-                            <span>
-                                <i class="fa-solid fa-briefcase"></i>
-                                8 Years
-                            </span>
-                            <span>
-                                <i class="fa-solid fa-location-dot"></i>
-                                Maharashtra
-                            </span>
-                        </div>
-
-                        <div class="advisor-bottom">
-                            <span class="advisor-rating">
-                                <i class="fa-solid fa-star"></i>
-                                4.8
-                            </span>
-                            <strong>₹500 / Consultation</strong>
-                        </div>
-
-                        <a href="/advisors/rajesh-patil" class="btn btn-outline-success w-100 mt-3">View Profile</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Advisor 2 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="advisor-card">
-
-                    <div class="advisor-photo">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="advisor-content">
-                        <span class="advisor-status">
-                            <i class="fa-solid fa-circle"></i>
-                            Available
-                        </span>
-
-                        <h3>Dr. Priya Sharma</h3>
-                        <p class="advisor-qualification">Ph.D. Plant Pathology</p>
-
-                        <div class="advisor-expertise">
-                            <span>Plant Disease</span>
-                            <span>Pest Management</span>
-                        </div>
-
-                        <div class="advisor-meta">
-                            <span>
-                                <i class="fa-solid fa-briefcase"></i>
-                                10 Years
-                            </span>
-                            <span>
-                                <i class="fa-solid fa-location-dot"></i>
-                                Maharashtra
-                            </span>
-                        </div>
-
-                        <div class="advisor-bottom">
-                            <span class="advisor-rating">
-                                <i class="fa-solid fa-star"></i>
-                                4.9
-                            </span>
-                            <strong>₹700 / Consultation</strong>
-                        </div>
-
-                        <a href="/advisors/priya-sharma" class="btn btn-outline-success w-100 mt-3">View Profile</a>
+            <% } else { %>
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-user-slash fa-2x mb-3"></i>
+                        <h3>सध्या कोणतेही सल्लागार उपलब्ध नाहीत.</h3>
+                        <p>कृपया नंतर पुन्हा प्रयत्न करा.</p>
                     </div>
                 </div>
-            </div>
+            <% } %>
 
-
-            <!-- Advisor 3 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="advisor-card">
-
-                    <div class="advisor-photo">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="advisor-content">
-
-                        <span class="advisor-status">
-                            <i class="fa-solid fa-circle"></i>
-                            Available
-                        </span>
-
-                        <h3>Dr. Amit Deshmukh</h3>
-                        <p class="advisor-qualification">M.Sc. Soil Science</p>
-
-                        <div class="advisor-expertise">
-                            <span>Soil Management</span>
-                            <span>Irrigation</span>
-                        </div>
-
-                        <div class="advisor-meta">
-                            <span>
-                                <i class="fa-solid fa-briefcase"></i>
-                                6 Years
-                            </span>
-                            <span>
-                                <i class="fa-solid fa-location-dot"></i>
-                                Maharashtra
-                            </span>
-                        </div>
-
-                        <div class="advisor-bottom">
-                            <span class="advisor-rating">
-                                <i class="fa-solid fa-star"></i>
-                                4.7
-                            </span>
-                            <strong>₹400 / Consultation</strong>
-                        </div>
-
-                        <a href="/advisors/amit-deshmukh" class="btn btn-outline-success w-100 mt-3">View Profile</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
