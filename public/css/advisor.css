@@ -1,0 +1,398 @@
+.advisors-section {
+    padding: 90px 0;
+    min-height: 800px;
+    background-color: #f5f8f2;
+}
+
+.advisor-search {
+    max-width: 700px;
+    margin: 40px auto 25px;
+}
+
+.advisor-search input {
+    height: 50px;
+}
+
+.advisor-search button {
+    padding: 0 25px;
+}
+
+.advisor-filters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.advisor-filters .form-select {
+    height: 48px;
+}
+
+.advisor{
+    margin-bottom: 30px;
+}
+
+.advisor-card {
+    height: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e8eee5;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.advisor-card:hover {
+    transform: translateY(-8px);
+    box-shadow:0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.advisor-photo {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8f5e9;
+    color: #198754;
+}
+
+.advisor-photo i {
+    font-size: 70px;
+}
+
+.advisor-content {
+    padding: 25px;
+}
+
+.advisor-status {
+    color: #198754;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.advisor-status i {
+    font-size: 8px;
+    margin-right: 4px;
+}
+
+.advisor-content h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.advisor-qualification {
+    color: #6c757d;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.advisor-expertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 20px;
+}
+
+.advisor-expertise span {
+    padding: 6px 10px;
+    background-color: #e8f5e9;
+    color: #198754;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.advisor-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #6c757d;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.advisor-meta i {
+    color: #198754;
+    margin-right: 4px;
+}
+
+.advisor-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.advisor-rating {
+    color: #d99a00;
+    font-weight: 700;
+}
+
+.advisor-rating i {
+    font-size: 13px;
+}
+
+.advisor-bottom strong {
+    font-size: 13px;
+}
+
+/* ADVISOR PROFILE */
+
+.advisor-profile-section {
+    padding: 70px 0;
+    background-color: #f5f8f2;
+}
+
+.advisor-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.advisor-breadcrumb a {
+    color: #198754;
+    text-decoration: none;
+}
+
+.advisor-breadcrumb i {
+    color: #6c757d;
+    font-size: 10px;
+}
+
+.advisor-breadcrumb span {
+    color: #6c757d;
+}
+
+.advisor-profile-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 30px;
+    padding: 35px;
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+.advisor-profile-photo {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8f5e9;
+    color: #198754;
+    border-radius: 20px;
+}
+
+.advisor-profile-photo i {
+    font-size: 75px;
+}
+
+.profile-status {
+    color: #198754;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-status i {
+    font-size: 8px;
+    margin-right: 4px;
+}
+
+.advisor-profile-main h1 {
+    font-size: 38px;
+    font-weight: 700;
+    margin: 8px 0 5px;
+}
+
+.profile-qualification {
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.profile-meta i {
+    color: #198754;
+    margin-right: 5px;
+}
+
+.profile-book {
+    min-width: 220px;
+    text-align: center;
+    padding-left: 25px;
+    border-left: 1px solid #e8eee5;
+}
+
+.profile-rating {
+    margin-bottom: 12px;
+}
+
+.profile-rating i {
+    color: #d99a00;
+}
+
+.profile-rating span {
+    color: #6c757d;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.profile-fee {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 0;
+}
+
+.fee-label {
+    display: block;
+    color: #6c757d;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.profile-info-card,
+.profile-side-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    margin-top: 25px;
+}
+
+.profile-info-card h2 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.profile-info-card h2 i,
+.profile-side-card h3 i {
+    color: #198754;
+    margin-right: 8px;
+}
+
+.profile-info-card p {
+    color: #6c757d;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+.profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.profile-tags span {
+    padding: 8px 14px;
+    background-color: #e8f5e9;
+    color: #198754;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.experience-item {
+    padding-left: 18px;
+    border-left: 3px solid #198754;
+}
+
+.experience-item strong {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.experience-item span {
+    color: #198754;
+    font-size: 13px;
+}
+
+.experience-item p {
+    margin-top: 10px;
+}
+
+
+.review-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-heading > span {
+    color: #d99a00;
+    font-weight: 700;
+}
+
+.review {
+    display: flex;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #e8eee5;
+}
+
+.review-user {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8f5e9;
+    color: #198754;
+    border-radius: 50%;
+}
+
+.review-stars {
+    color: #d99a00;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.review p {
+    font-size: 14px;
+}
+
+.profile-side-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.availability-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8eee5;
+    font-size: 13px;
+}
+
+.availability-item span {
+    color: #6c757d;
+}
+
+.availability-item strong {
+    text-align: right;
+}
+
+
+.consultation-card {
+    background-color: #e8f5e9;
+}
+
+.consultation-card p {
+    color: #5f6b61;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 20px;
+}

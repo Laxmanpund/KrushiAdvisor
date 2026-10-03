@@ -64,8 +64,17 @@ app.get("/diseases", (req, res) => {
     res.render("pages/diseases");
 });
 
+app.get("/diseases/wheat-rust", (req, res) => {
+    res.render("pages/disease-details");
+});
 
+app.get("/advisors", (req, res) => {
+    res.render("pages/advisors");
+});
 
+app.get("/advisors/rajesh-patil", (req, res) => {
+    res.render("pages/advisor-profile");
+});
 
 app.listen(7426, () => {
     console.log("server is listening port 7426");
