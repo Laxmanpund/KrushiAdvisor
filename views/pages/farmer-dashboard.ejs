@@ -1,0 +1,115 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <div class="mb-5">
+        <h1 class="fw-bold">नमस्कार, <%= currentUser.name %> 👋 </h1>
+        <p class="text-muted">तुमच्या शेतीसाठी योग्य माहिती आणि कृषी मार्गदर्शन मिळवा.</p>
+    </div>
+
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="fa-solid fa-wheat-awn fs-2 text-success"></i>
+                    <h5 class="mt-3">पिकांची माहिती</h5>
+                    <p class="text-muted">विविध पिकांची लागवड, माती, सिंचन आणि खत व्यवस्थापनाची माहिती.</p>
+                    <a href="/crops" class="btn btn-outline-success">माहिती पहा</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="fa-solid fa-bug fs-2 text-danger"></i>
+                    <h5 class="mt-3">रोग व किडी</h5>
+                    <p class="text-muted">पिकांवरील सामान्य रोग आणि किडींची लक्षणे व व्यवस्थापन जाणून घ्या.</p>
+                    <a href="/diseases" class="btn btn-outline-danger">माहिती पहा</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="fa-solid fa-user-doctor fs-2 text-primary"></i>
+                    <h5 class="mt-3">कृषी सल्लागार</h5>
+                    <p class="text-muted">अनुभवी कृषी सल्लागार शोधा आणि योग्य मार्गदर्शन मिळवा.</p>
+                    <a href="/advisors" class="btn btn-outline-primary">सल्लागार पहा</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="fa-solid fa-calendar-check fs-2 text-warning"></i>
+                    <h5 class="mt-3">माझ्या भेटी</h5>
+                    <p class="text-muted">तुमच्या कृषी सल्लामसलती आणि बुकिंगची माहिती येथे पहा.</p>
+                    <a href="#" class="btn btn-outline-warning">लवकरच उपलब्ध</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="mb-4">
+        <h2 class="fw-bold">उपलब्ध कृषी सल्लागार</h2>
+
+        <p class="text-muted">
+            सध्या उपलब्ध असलेल्या सल्लागारांकडून मार्गदर्शन मिळवा.
+        </p>
+    </div>
+
+
+    <div class="row g-4">
+        <% if (advisors.length === 0) { %>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    सध्या कोणताही सल्लागार उपलब्ध नाही.
+                </div>
+            </div>
+        <% } %>
+
+        <% advisors.forEach(advisor => { %>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body">
+                        <h5 class="fw-bold"><%= advisor.name %></h5>
+
+                        <p class="text-muted mb-2">
+                            <%= advisor.qualification %>
+                        </p>
+                        <div class="mb-3">
+                            <% advisor.expertise.forEach(skill => { %>
+                                <span class="badge text-bg-light border me-1 mb-1"><%= skill %></span>
+                            <% }) %>
+                        </div>
+
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <%= advisor.location %>
+                        </p>
+
+                        <p>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <%= advisor.rating %> / 5
+                        </p>
+
+                        <p>
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                            ₹<%= advisor.consultationFee %> / consultation
+                        </p>
+
+                        <a href="/advisors/<%= advisor._id %>" class="btn btn-success w-100">प्रोफाइल पहा</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+
+    </div>
+</div>

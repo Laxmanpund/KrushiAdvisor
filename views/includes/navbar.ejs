@@ -56,10 +56,24 @@
 
             </ul>
 
-            <div class="d-flex gap-2">
-               <a href="/login" class="btn btn-outline-success">लॉगिन</a>
-                <a href="/signup" class="btn btn-success">नोंदणी</a>
-            </div>
+           <% if (currentUser) { %>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="navbar-text">
+                       नमस्कार, <%= currentUser.name %>
+                    </span>
+                    <a href="/logout" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </div>
+
+             <% } else { %>
+                <div class="d-flex gap-2">
+                    <a href="/login" class="btn btn-outline-success">लॉगिन</a>
+                    <a href="/signup" class="btn btn-success">नोंदणी</a>
+                </div>
+            <% } %>
+
         </div>
     </div>
 </nav>
