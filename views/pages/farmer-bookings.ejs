@@ -1,0 +1,114 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <div class="mb-5">
+        <h1 class="fw-bold">
+            <i class="fa-solid fa-calendar-check text-success"></i>
+            माझ्या भेटी
+        </h1>
+        <p class="text-muted">तुमच्या कृषी सल्लामसलती आणि बुकिंगची माहिती.</p>
+    </div>
+
+    <% if (bookings.length === 0) { %>
+        <div class="text-center py-5">
+            <i class="fa-solid fa-calendar-xmark fa-3x text-muted mb-3"></i>
+            <h4 class="fw-bold">अजून कोणतीही बुकिंग नाही</h4>
+            <p class="text-muted">कृषी सल्लागार शोधून तुमची पहिली सल्लामसलत बुक करा.</p>
+
+            <a href="/advisors" class="btn btn-success">
+                <i class="fa-solid fa-user-doctor"></i>
+                सल्लागार शोधा
+            </a>
+        </div>
+
+    <% } else { %>
+
+        <div class="row g-4">
+            <% bookings.forEach(booking => { %>
+                <div class="col-lg-6">
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h4 class="fw-bold mb-1"><%= booking.advisor.name %></h4>
+                                    <p class="text-muted mb-0"><%= booking.advisor.qualification %></p>
+                                </div>
+
+                                <!-- Status -->
+
+                                <% if (booking.status === "pending") { %>
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fa-solid fa-clock"></i>
+                                        Pending
+                                    </span>
+                                <% } else if (booking.status === "accepted") { %>
+                                    <span class="badge bg-success">
+                                        <i class="fa-solid fa-check"></i>
+                                        Accepted
+                                    </span>
+                                <% } else if (booking.status === "rejected") { %>
+                                    <span class="badge bg-danger">
+                                        <i class="fa-solid fa-xmark"></i>
+                                        Rejected
+                                    </span>
+                                <% } else if (booking.status === "completed") { %>
+                                    <span class="badge bg-primary">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        Completed
+                                    </span>
+                                <% } %>
+                            </div>
+
+                            <hr>
+                            
+                            <!-- Booking Date -->
+                            <div class="mb-3">
+                                <strong>
+                                    <i class="fa-solid fa-calendar text-success"></i>
+                                    तारीख
+                                </strong>
+                                <p class="text-muted mb-0"><%= new Date(booking.date).toLocaleDateString("mr-IN") %></p>
+                            </div>
+
+                            <!-- Booking Time -->
+                            <div class="mb-3">
+                                <strong>
+                                    <i class="fa-solid fa-clock text-success"></i>
+                                    वेळ
+                                </strong>
+                                <p class="text-muted mb-0"><%= booking.time %></p>
+                            </div>
+
+                            <!-- Problem -->
+                            <div class="mb-3">
+                                <strong>
+                                    <i class="fa-solid fa-file-lines text-success"></i>
+                                    तुमची समस्या
+                                </strong>
+                                <p class="text-muted mb-0 mt-1"><%= booking.problem %></p>
+                            </div>
+
+                            <!-- Fee -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <span>
+                                    <i class="fa-solid fa-indian-rupee-sign text-success"></i>
+                                    Consultation Fee
+                                </span>
+                                <strong class="text-success fs-5">₹<%= booking.advisor.consultationFee %></strong>
+                            </div>
+
+                            <!-- Advisor Profile -->
+                            <a href="/advisors/<%= booking.advisor._id %>" class="btn btn-outline-success w-100">
+                                <i class="fa-solid fa-user"></i>
+                                सल्लागाराचे प्रोफाइल पहा
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</div>

@@ -1,0 +1,110 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+    
+    <div class="mb-5">
+        <h1 class="fw-bold">
+            <i class="fa-solid fa-calendar-check text-success"></i>
+            कृषी सल्लामसलत बुक करा
+        </h1>
+        <p class="text-muted">तुमच्या समस्येसाठी योग्य वेळ निवडून सल्लामसलत बुक करा.</p>
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- Advisor Information -->
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4">
+                        <i class="fa-solid fa-user-doctor text-success"></i>
+                        सल्लागार
+                    </h4>
+
+                    <h3 class="fw-bold"><%= advisor.name %></h3>
+                    <p class="text-muted"><%= advisor.qualification %></p>
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= advisor.location %>
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-briefcase"></i>
+                        <%= advisor.experience %> वर्षांचा अनुभव
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <%= advisor.rating %> / 5
+                    </p>
+                    <hr>
+                    <div class="text-center">
+                        <small class="text-muted">Consultation Fee</small>
+                        <h2 class="fw-bold text-success">₹<%= advisor.consultationFee %></h2>
+                        <small class="text-muted">प्रति सल्लामसलत</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Booking Form -->
+
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4">बुकिंगची माहिती</h4>
+
+                    <form action="/advisors/<%= advisor._id %>/book" method="POST">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">सल्लामसलतीची तारीख</label>
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">सल्लामसलतीची वेळ</label>
+                            <input type="time" name="time" class="form-control" required>
+                        </div>
+
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">तुमची शेतीची समस्या</label>
+                            <textarea
+                                name="problem"
+                                class="form-control"
+                                rows="6"
+                                placeholder="उदा. माझ्या कापूस पिकावर बोंडअळीचा प्रादुर्भाव दिसत आहे..."
+                                required
+                            ></textarea>
+
+                            <div class="form-text">तुमची समस्या शक्य तितक्या स्पष्टपणे लिहा.</div>
+                        </div>
+
+                        <div class="alert alert-light border">
+                            <div class="d-flex justify-content-between">
+                                <span>Consultation Fee</span>
+                                <strong>₹<%= advisor.consultationFee %></strong>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                Booking करा
+                            </button>
+
+                            <a href="/advisors/<%= advisor._id %>" class="btn btn-outline-secondary">
+                                रद्द करा
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

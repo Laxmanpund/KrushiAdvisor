@@ -1,22 +1,25 @@
 <% layout("/layouts/boilerplate") %>
 
+
 <div class="container py-5">
 
     <div class="mb-5">
-        <h1 class="fw-bold">नमस्कार, <%= advisor.name %> 👋</h1>
+        <h1 class="fw-bold">नमस्कार, <%= currentUser.name %> 👋</h1>
         <p class="text-muted">तुमचे कृषी मार्गदर्शन आणि सल्ला येथे व्यवस्थापित करा.</p>
     </div>
 
+    <!-- Profile + Availability-->
+
     <div class="row g-4 mb-5">
-
-        <div class="col-md-8">
+        <div class="col-lg-8">
+            
             <div class="card shadow-sm h-100">
-                <div class="card-body">
+                <div class="card-body p-4">
 
-                    <h3 class="fw-bold mb-3">
-                        <i class="fa-solid fa-user-doctor"></i>
+                    <h2 class="fw-bold mb-4">
+                        <i class="fa-solid fa-user-doctor text-success"></i>
                         माझी प्रोफाइल
-                    </h3>
+                    </h2>
 
                     <p>
                         <strong>शैक्षणिक पात्रता:</strong>
@@ -43,83 +46,206 @@
                         <i class="fa-solid fa-star text-warning"></i>
                         <%= advisor.rating %> / 5
                     </p>
-                    <a href="/advisors/<%= advisor._id %>" class="btn btn-outline-success">प्रोफाइल पहा</a>
+ 
+                    <a href="/advisors/<%= advisor._id %>" class="btn btn-outline-success" >प्रोफाइल पहा</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <!-- Availability -->
+        <div class="col-lg-4">
             <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
 
-                   <% if (advisor.isAvailable) { %>
-                      <i class="fa-solid fa-circle-check fs-1 text-success"></i>
-                      <h4 class="mt-3">उपलब्धता</h4>
-                      <span class="badge text-bg-success fs-6">सध्या उपलब्ध</span>
-                      <p class="text-muted mt-3">शेतकरी तुमच्याशी सल्लामसलतीसाठी संपर्क करू शकतात.</p>
+                <div class="card-body p-4 text-center">
+                    <% if (advisor.isAvailable) { %>
+                        <div class="mb-3">
+                            <i class="fa-solid fa-circle-check text-success fa-3x"></i>
+                        </div>
 
-                       <form action="/advisor/availability" method="POST" class="mt-3">
-                           <button type="submit" class="btn btn-outline-danger">
-                               <i class="fa-solid fa-toggle-off"></i>
-                               अनुपलब्ध करा
-                            </button>
-                        </form>
+                        <h4 class="fw-bold">सध्या उपलब्ध</h4>
+                        <p class="text-muted">शेतकरी तुमच्यासोबत consultation book करू शकतात.</p>
 
                     <% } else { %>
-                        <i class="fa-solid fa-circle-xmark fs-1 text-secondary"></i>
-                        <h4 class="mt-3">उपलब्धता</h4>
-                        <span class="badge text-bg-secondary fs-6">सध्या अनुपलब्ध</span>
-                        <p class="text-muted mt-3">सध्या शेतकरी तुमच्याशी consultation करू शकत नाहीत.</p>
+                        <div class="mb-3">
+                            <i class="fa-solid fa-circle-xmark text-danger fa-3x"></i>
+                        </div>
 
-                        <form action="/advisor/availability" method="POST" class="mt-3">
-                            <button type="submit" class="btn btn-success">
+                        <h4 class="fw-bold">सध्या अनुपलब्ध</h4>
+                        <p class="text-muted">सध्या शेतकरी नवीन booking करू शकत नाहीत.</p>
+                    <% } %>
+
+                    <form action="/advisor/availability" method="POST">
+                        <% if (advisor.isAvailable) { %>
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fa-solid fa-toggle-off"></i>
+                                अनुपलब्ध करा
+                            </button>
+
+                        <% } else { %>
+                            <button type="submit" class="btn btn-outline-success">
                                 <i class="fa-solid fa-toggle-on"></i>
                                 उपलब्ध करा
                             </button>
-                       </form>
-                   <% } %>
+                        <% } %>
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>
 
-
+    <!--Expertise-->
     <div class="card shadow-sm mb-5">
-        <div class="card-body">
+        <div class="card-body p-4">
 
-            <h3 class="fw-bold mb-4">
-                <i class="fa-solid fa-seedling"></i>
+            <h2 class="fw-bold mb-4">
+                <i class="fa-solid fa-seedling text-success"></i>
                 माझे तज्ज्ञ क्षेत्र
-            </h3>
+            </h2>
 
             <div class="d-flex flex-wrap gap-2">
                 <% advisor.expertise.forEach(skill => { %>
-                    <span class="badge text-bg-light border p-2">
-                        <%= skill %>
-                    </span>
+                    <span class="badge bg-light text-dark border p-2"><%= skill %></span>
                 <% }) %>
-
             </div>
-
         </div>
     </div>
 
+    <!--Consultation Requests-->
 
-    <div class="card shadow-sm">
+    <div class="card shadow-sm mb-5">
+        <div class="card-body p-4">
 
-        <div class="card-body">
-            <h3 class="fw-bold">
-                <i class="fa-solid fa-calendar-check"></i>
+            <h2 class="fw-bold mb-2">
+                <i class="fa-solid fa-calendar-check text-success"></i>
                 Consultation Requests
-            </h3>
-            <p class="text-muted">शेतकऱ्यांकडून आलेल्या consultation requests येथे दिसतील.</p>
+            </h2>
 
-            <div class="alert alert-info mb-0">
-                सध्या कोणत्याही consultation requests नाहीत.
-                <br>
-                Booking system तयार केल्यानंतर येथे requests दिसतील.
-            </div>
+            <p class="text-muted mb-4">
+                शेतकऱ्यांकडून आलेल्या सल्लामसलतीच्या
+                विनंत्या येथे दिसतील.
+            </p>
 
+            <!-- No Requests -->
+            <% if (bookings.length === 0) { %>
+                <div class="alert alert-info mb-0">
+                    <i class="fa-solid fa-circle-info"></i>
+                    सध्या कोणतीही consultation request नाही.
+                </div>
+
+            <% } else { %>
+
+                <div class="row g-4">
+                    <% bookings.forEach(booking => { %>
+                        <div class="col-lg-6">
+
+                            <div class="card border h-100">
+                                <div class="card-body p-4">
+
+                                    <!-- Farmer + Status -->
+                                    <div class="d-flex justify-content-between align-items-start">
+
+                                        <div>
+                                            <h4 class="fw-bold mb-1"><%= booking.farmer.name %></h4>
+                                            <p class="text-muted mb-0">शेतकरी</p>
+                                        </div>
+
+                                        <!-- Status -->
+                                        <% if (booking.status === "pending") { %>
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="fa-solid fa-clock"></i>
+                                                Pending
+                                            </span>
+                                        <% } else if (booking.status === "accepted") { %>
+                                            <span class="badge bg-success">
+                                                <i class="fa-solid fa-check"></i>
+                                                Accepted
+                                            </span>
+                                        <% } else if (booking.status === "rejected") { %>
+                                            <span class="badge bg-danger">
+                                                <i class="fa-solid fa-xmark"></i>
+                                                Rejected
+                                            </span>
+                                        <% } else if (booking.status === "completed") { %>
+                                            <span class="badge bg-primary">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                                Completed
+                                            </span>
+                                        <% } %>
+                                    </div>
+
+                                    <hr>
+
+                                    <!-- Date -->
+                                    <p>
+                                        <i class="fa-solid fa-calendar text-success"></i>
+                                        <strong>तारीख:</strong>
+                                        <%= new Date(booking.date).toLocaleDateString("mr-IN") %>
+                                    </p>
+
+
+                                    <!-- Time -->
+                                    <p>
+                                        <i class="fa-solid fa-clock text-success"></i>
+                                        <strong>वेळ:</strong>
+                                        <%= booking.time %>
+                                    </p>
+
+                                    <!-- Problem -->
+                                    <div class="mb-4">
+                                        <strong>
+                                            <i class="fa-solid fa-file-lines text-success"></i>
+                                            शेतकऱ्याची समस्या
+                                        </strong>
+                                        <p class="text-muted mt-2"><%= booking.problem %></p> 
+                                    </div>
+
+                                    <!-- Farmer Details -->
+                                    <% if (booking.farmer.mobile) { %>
+                                        <p>
+                                            <i class="fa-solid fa-phone text-success"></i>
+                                            <strong>मोबाईल:</strong>
+                                            <%= booking.farmer.mobile %>
+                                        </p>
+                                    <% } %>
+
+                                    <% if (booking.farmer.village) { %>
+                                        <p>
+                                            <i class="fa-solid fa-location-dot text-success"></i>
+                                            <strong>गाव:</strong>
+                                            <%= booking.farmer.village %>
+                                        </p>
+                                    <% } %>
+
+                                    <!-- Action Buttons -->
+                                    <% if (booking.status === "pending") { %>
+                                        <div class="d-flex gap-2 mt-4">
+                                            <form action="/advisor/bookings/<%= booking._id %>/accept" method="POST" class="flex-grow-1">
+                                                <button type="submit" class="btn btn-success w-100">
+                                                    <i class="fa-solid fa-check"></i>
+                                                    Accept
+                                                </button>
+                                            </form>
+
+                                            <form action="/advisor/bookings/<%= booking._id %>/reject" method="POST" class="flex-grow-1">
+                                                <button type="submit" class="btn btn-outline-danger w-100">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                    Reject
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    <% } %>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    <% }) %>
+                </div>
+
+            <% } %>
         </div>
+
     </div>
 </div>

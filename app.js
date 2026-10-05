@@ -11,6 +11,7 @@ const diseaseRoutes = require("./routes/disease");
 const userRoutes = require("./routes/user");
 const dashboardRoutes = require("./routes/dashboard");
 const profileRoutes = require("./routes/profile");
+const bookingRoutes = require("./routes/booking");
 
 const methodOverride = require("method-override");
 const session = require("express-session");
@@ -76,6 +77,7 @@ app.use("/advisors", advisorRoutes);
 app.use("/", userRoutes);
 app.use("/", dashboardRoutes);
 app.use("/", profileRoutes);
+app.use("/", bookingRoutes);
 
 app.get("/about", (req, res) => {
     res.render("pages/about");
