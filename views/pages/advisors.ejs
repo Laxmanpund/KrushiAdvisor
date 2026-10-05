@@ -12,48 +12,105 @@
             </p>
         </div>
 
-        <div class="advisor-search">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="सल्लागार किंवा कौशल्य शोधा...">
-                <button class="btn btn-success">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    शोधा
-                </button>
+        <form action="/advisors" method="GET">
+
+            <div class="advisor-search">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="सल्लागार किंवा कौशल्य शोधा..." value="<%= search || '' %>">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        शोधा
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="advisor-filters">
-            <select class="form-select">
-                <option selected>ठिकाण</option>
-                <option>महाराष्ट्र</option>
-                <option>मध्य प्रदेश</option>
-                <option>कर्नाटक</option>
-            </select>
+            <div class="advisor-filters">
 
-            <select class="form-select">
-                <option selected>कौशल्य</option>
-                <option>पीक व्यवस्थापन</option>
-                <option>वनस्पती रोग</option>
-                <option>मृदा विज्ञान</option>
-                <option>माती व्यवस्थापन</option>
-                <option>कीड व्यवस्थापन</option>
-                <option>सिंचन व्यवस्थापन</option>
-            </select>
+                <select name="location" class="form-select">
+                    <option value="">सर्व ठिकाणे</option>
+                    <option value="महाराष्ट्र"
+                        <%= location === "महाराष्ट्र" ? "selected" : "" %>>
+                        महाराष्ट्र
+                    </option>
+                </select>
 
-            <select class="form-select">
-                <option selected>अनुभव</option>
-                <option>1+ वर्षे</option>
-                <option>5+ वर्षे</option>
-                <option>10+ वर्षे</option>
-            </select>
+                <select name="expertise" class="form-select">
+                   <option value="">सर्व कौशल्ये</option>
+                   <option value="पीक व्यवस्थापन"
+                        <%= expertise === "पीक व्यवस्थापन" ? "selected" : "" %>>
+                        पीक व्यवस्थापन
+                   </option>
 
-            <select class="form-select">
-                <option selected>सल्ला शुल्क</option>
-                <option>₹500 पेक्षा कमी</option>
-                <option>₹500 - ₹1000</option>
-                <option>₹1000 पेक्षा जास्त</option>
-            </select>
-        </div>
+                   <option value="मृदा विज्ञान"
+                        <%= expertise === "मृदा विज्ञान" ? "selected" : "" %>>
+                        मृदा विज्ञान
+                    </option>
+
+                    <option value="सिंचन व्यवस्थापन"
+                        <%= expertise === "सिंचन व्यवस्थापन" ? "selected" : "" %>>
+                        सिंचन व्यवस्थापन
+                   </option>
+
+                   <option value="अन्नद्रव्य व्यवस्थापन"
+                        <%= expertise === "अन्नद्रव्य व्यवस्थापन" ? "selected" : "" %>>
+                        अन्नद्रव्य व्यवस्थापन
+                   </option>
+
+                   <option value="वनस्पती रोग"
+                        <%= expertise === "वनस्पती रोग" ? "selected" : "" %>>
+                        वनस्पती रोग
+                   </option>
+
+                   <option value="कीड व्यवस्थापन"
+                        <%= expertise === "कीड व्यवस्थापन" ? "selected" : "" %>>
+                        कीड व्यवस्थापन
+                   </option>
+
+                   <option value="माती व्यवस्थापन"
+                        <%= expertise === "माती व्यवस्थापन" ? "selected" : "" %>>
+                        माती व्यवस्थापन
+                    </option>
+                </select>
+
+                <select name="experience" class="form-select">
+                    <option value="">सर्व अनुभव</option>
+                    <option value="1"
+                        <%= experience === "1" ? "selected" : "" %>>
+                        1+ वर्षे
+                   </option> 
+                   <option value="5"
+                        <%= experience === "5" ? "selected" : "" %>>
+                        5+ वर्षे
+                   </option>
+                   <option value="10"
+                        <%= experience === "10" ? "selected" : "" %>>
+                        10+ वर्षे
+                    </option>
+                </select>
+
+                <select name="fee" class="form-select">
+                    <option value="">सर्व शुल्क</option>
+                    <option value="500"
+                        <%= fee === "500" ? "selected" : "" %>>
+                        ₹500 पेक्षा कमी
+                    </option>
+
+                    <option value="500-1000"
+                        <%= fee === "500-1000" ? "selected" : "" %>>
+                        ₹500 - ₹1000
+                    </option>
+
+                    <option value="1000"
+                        <%= fee === "1000" ? "selected" : "" %>>
+                        ₹1000 पेक्षा जास्त
+                   </option>
+                </select>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" name="available" value="true" id="available" <%= available === "true" ? "checked" : "" %>>
+                    <label class="form-check-label" for="available">फक्त उपलब्ध सल्लागार दाखवा</label>
+                </div>
+           </div>
+       </form>
 
         <div class="advisor row g-4 mt-4">
             <% if (advisors.length > 0) { %>

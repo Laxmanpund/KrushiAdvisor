@@ -1,0 +1,182 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+    <div class="mb-5">
+        <h1 class="fw-bold">
+            <i class="fa-solid fa-pen-to-square text-success"></i>
+            प्रोफाइल Edit करा
+        </h1>
+        <p class="text-muted">तुमची माहिती अपडेट करा.</p>
+    </div>
+
+
+    <form action="/profile/edit" method="POST">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+
+                <h4 class="fw-bold mb-4">मूलभूत माहिती</h4>
+
+                <div class="mb-3">
+                    <label class="form-label">नाव</label>
+                    <input type="text" name="name" class="form-control" value="<%= user.name %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" value="<%= user.email %>" disabled>
+
+                    <div class="form-text">
+                        Email सध्या बदलता येणार नाही.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Farmer Fields -->
+
+        <% if (user.role === "farmer") { %>
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+
+                    <h4 class="fw-bold mb-4">
+                        <i class="fa-solid fa-wheat-awn text-success"></i>
+                        शेतीविषयक माहिती
+                    </h4>
+
+                    <div class="mb-3">
+                        <label class="form-label">मोबाईल नंबर</label>
+                        <input
+                            type="text"
+                            name="mobile"
+                            class="form-control"
+                            value="<%= profile.mobile %>"
+                        >
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">गाव</label>
+                            <input
+                                type="text"
+                                name="village"
+                                class="form-control"
+                                value="<%= profile.village %>"
+                            >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">जिल्हा</label>
+                            <input
+                                type="text"
+                                name="district"
+                                class="form-control"
+                                value="<%= profile.district %>"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">शेतीचा प्रकार</label>
+                        <input
+                            type="text"
+                            name="farmingType"
+                            class="form-control"
+                            placeholder="उदा. खरीप, रब्बी, मिश्र शेती"
+                            value="<%= profile.farmingType %>"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">शेतीचे क्षेत्रफळ (एकर)</label>
+                        <input
+                            type="number"
+                            name="farmSize"
+                            class="form-control"
+                            step="0.01"
+                            min="0"
+                            value="<%= profile.farmSize %>"
+                        >
+                    </div>
+
+                </div>
+            </div>
+        <% } %>
+
+
+        <!-- Advisor Fields -->
+
+        <% if (user.role === "advisor") { %>
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+
+                    <h4 class="fw-bold mb-4">
+                        <i class="fa-solid fa-user-doctor text-success"></i>
+                        कृषी सल्लागार माहिती
+                    </h4>
+
+                    <div class="mb-3">
+                        <label class="form-label">शैक्षणिक पात्रता</label>
+                        <input
+                            type="text"
+                            name="qualification"
+                            class="form-control"
+                            value="<%= profile.qualification %>"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">तज्ज्ञ क्षेत्र</label>
+                        <input
+                            type="text"
+                            name="expertise"
+                            class="form-control"
+                            placeholder="उदा. मृदा विज्ञान, पीक व्यवस्थापन"
+                            value="<%= profile.expertise.join(", ") %>">
+
+                        <div class="form-text">
+                            प्रत्येक क्षेत्र comma (,) ने वेगळे करा.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">अनुभव (वर्षे)</label>
+                            <input type="number" name="experience" class="form-control" min="0" value="<%= profile.experience %>">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Consultation Fee (₹)</label>
+                            <input type="number" name="consultationFee" class="form-control" min="0" value="<%= profile.consultationFee %>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">ठिकाण</label>
+                        <input type="text" name="location" class="form-control" value="<%= profile.location %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">माझ्याबद्दल</label>
+                        <textarea name="about" class="form-control" rows="4"><%= profile.about %></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">अनुभवाचे वर्णन </label>
+                        <textarea name="experienceDescription" class="form-control" rows="4"><%= profile.experienceDescription %></textarea>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success">
+                <i class="fa-solid fa-floppy-disk"></i>
+                माहिती जतन करा
+            </button>
+
+            <a href="/profile" class="btn btn-outline-secondary">रद्द करा</a>
+        </div>
+    </form>
+
+</div>

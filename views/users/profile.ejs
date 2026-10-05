@@ -1,0 +1,145 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="fw-bold">
+                <i class="fa-solid fa-user text-success"></i>
+                माझी प्रोफाइल
+            </h1>
+            <p class="text-muted">तुमची वैयक्तिक माहिती येथे पहा.</p>
+        </div>
+
+        <a href="/profile/edit" class="btn btn-success">
+            <i class="fa-solid fa-pen-to-square"></i>
+            प्रोफाइल Edit करा
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h4 class="fw-bold mb-4">
+                <i class="fa-solid fa-circle-user"></i>
+                मूलभूत माहिती
+            </h4>
+
+            <p>
+                <strong>नाव:</strong>
+                <%= user.name %>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <%= user.email %>
+            </p>
+
+            <p>
+                <strong>Role:</strong>
+                <% if (user.role === "farmer") { %>
+                    शेतकरी
+                <% } else if (user.role === "advisor") { %>
+                    कृषी सल्लागार
+                <% } %>
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Farmer Profile -->
+
+    <% if (user.role === "farmer") { %>
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4 class="fw-bold mb-4">
+                    <i class="fa-solid fa-wheat-awn text-success"></i>
+                    शेतीविषयक माहिती
+                </h4>
+
+                <p>
+                    <strong>मोबाईल:</strong>
+                    <%= profile.mobile || "माहिती दिलेली नाही" %>
+                </p>
+
+                <p>
+                    <strong>गाव:</strong>
+                    <%= profile.village || "माहिती दिलेली नाही" %>
+                </p>
+
+                <p>
+                    <strong>जिल्हा:</strong>
+                    <%= profile.district || "माहिती दिलेली नाही" %>
+                </p>
+
+                <p>
+                    <strong>शेतीचा प्रकार:</strong>
+                    <%= profile.farmingType || "माहिती दिलेली नाही" %>
+                </p>
+
+                <p>
+                    <strong>शेतीचे क्षेत्रफळ:</strong>
+                    <% if (profile.farmSize) { %>
+                        <%= profile.farmSize %> एकर
+                    <% } else { %>
+                        माहिती दिलेली नाही
+                    <% } %>
+                </p>
+            </div>
+        </div>
+    <% } %>
+
+
+    <!-- Advisor Profile -->
+
+    <% if (user.role === "advisor") { %>
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4 class="fw-bold mb-4">
+                    <i class="fa-solid fa-user-doctor text-success"></i>
+                    कृषी सल्लागार माहिती
+                </h4>
+
+                <p>
+                    <strong>शैक्षणिक पात्रता:</strong>
+                    <%= profile.qualification || "माहिती दिलेली नाही" %>
+                </p>
+
+                <p>
+                    <strong>अनुभव:</strong>
+                    <%= profile.experience || 0 %> वर्षे
+                </p>
+
+                <p>
+                    <strong>ठिकाण:</strong>
+                    <%= profile.location || "माहिती दिलेली नाही" %>
+                </p>
+
+                <p>
+                    <strong>Consultation Fee:</strong>
+                    ₹<%= profile.consultationFee || 0 %>
+                </p>
+                <p><strong>तज्ज्ञ क्षेत्र:</strong></p>
+
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <% if (profile.expertise.length > 0) { %>
+                        <% profile.expertise.forEach(skill => { %>
+                            <span class="badge text-bg-light border p-2"><%= skill %></span>
+                        <% }) %>
+
+                    <% } else { %>
+                        <span class="text-muted">माहिती दिलेली नाही</span>
+                    <% } %>
+                </div>
+
+                <p>
+                    <strong>माझ्याबद्दल:</strong>
+                    <%= profile.about || "माहिती दिलेली नाही" %>
+                </p>
+            </div>
+        </div>
+    <% } %>
+
+</div>

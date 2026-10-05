@@ -3,77 +3,84 @@
 
         <a class="navbar-brand" href="/">🌾 Krushi Advisor</a>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+
         <div class="collapse navbar-collapse" id="navbarNav">
-
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        मुख्यपृष्ठ
-                    </a>
+                    <a class="nav-link" href="/">मुख्यपृष्ठ</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/crops">
-                        पिके
-                    </a>
+                    <a class="nav-link" href="/crops">पिके</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/diseases">
-                        रोग व किडी
-                    </a>
+                    <a class="nav-link" href="/diseases">रोग व किडी</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/advisors">
-                        कृषी सल्लागार
-                    </a>
+                    <a class="nav-link" href="/advisors">कृषी सल्लागार</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">
-                        आमच्याबद्दल
-                    </a>
+                    <a class="nav-link" href="/about">आमच्याबद्दल</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">
-                        संपर्क
-                    </a>
+                    <a class="nav-link" href="/contact">संपर्क</a>
                 </li>
-
             </ul>
 
-           <% if (currentUser) { %>
+            <!-- Authentication Section -->
+
+            <% if (currentUser) { %>
                 <div class="d-flex align-items-center gap-2">
-                    <span class="navbar-text">
-                       नमस्कार, <%= currentUser.name %>
+                    <span class="text-dark">
+                        <i class="fa-solid fa-user text-success"></i>
+                        <%= currentUser.name %>
                     </span>
-                    <a href="/logout" class="btn btn-outline-danger">
+
+                    <% if (currentUser.role === "farmer") { %>
+                        <a href="/farmer/dashboard" class="btn btn-outline-success">Dashboard</a>
+                    <% } %>
+
+
+                    <% if (currentUser.role === "advisor") { %>
+                        <a href="/advisor/dashboard" class="btn btn-outline-success">Dashboard</a>
+                    <% } %>
+
+            
+                   <a href="/profile" class="btn btn-outline-success">
+                        <i class="fa-solid fa-user"></i>
+                         Profile
+                   </a>
+
+                    <a href="/logout" class="btn btn-success">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         Logout
                     </a>
                 </div>
 
-             <% } else { %>
+            <% } else { %>
+                <!-- Logged Out -->
                 <div class="d-flex gap-2">
-                    <a href="/login" class="btn btn-outline-success">लॉगिन</a>
-                    <a href="/signup" class="btn btn-success">नोंदणी</a>
-                </div>
-            <% } %>
+                    <a href="/login" class="btn btn-outline-success">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
+                    </a>
 
+                    <a href="/signup" class="btn btn-success">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Signup
+                    </a>
+                </div>
+
+            <% } %>
         </div>
+
     </div>
 </nav>
