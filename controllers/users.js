@@ -1,48 +1,47 @@
+
 const User = require("../models/user");
 const Advisor = require("../models/advisor");
 const Farmer = require("../models/farmer");
 const bcrypt = require("bcrypt");
 
-
+// Signup Page
 module.exports.signupForm = (req, res) => {
     res.render("users/signup");
 };
 
-
+// Signup
 module.exports.signup = async (req, res) => {
     try {
-        const {name,email,password,confirmPassword,role} = req.body;
+        const { name, email, password, confirmPassword, role } = req.body;
 
         if (password !== confirmPassword) {
-            return res.status(400).send(
-                "Passwords do not match"
-            );
+            req.flash("error", "Passwords do not match.");
+            return res.redirect("/signup");
         }
 
-        const existingUser = await User.findOne({email});
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            return res.status(400).send(
-                "Email already registered"
-            );
+            req.flash("error", "Email already registered.");
+            return res.redirect("/signup");
         }
 
-        const hashedPassword = await bcrypt.hash(
-            password,
-            12
-        );
-
+        const hashedPassword = await bcrypt.hash(password, 12);
         const userRole = role === "advisor" ? "advisor" : "farmer";
-        const user = new User({name,email,password: hashedPassword,role: userRole});
+        const user = new User({
+            name,
+            email,
+            password: hashedPassword,
+            role: userRole
+        });
 
         await user.save();
 
-        // Create Profile Based On Role
-
+        // Create profile based on role
         if (userRole === "advisor") {
             const advisor = new Advisor({
                 user: user._id,
-                name: name,
+                name,
                 qualification: "",
                 expertise: [],
                 experience: 0,
@@ -51,16 +50,13 @@ module.exports.signup = async (req, res) => {
                 isAvailable: false,
                 about: "",
                 experienceDescription: ""
-
             });
 
             await advisor.save();
-        }
-
-        if (userRole === "farmer") {
+        } else {
             const farmer = new Farmer({
                 user: user._id,
-                name: name,
+                name,
                 mobile: "",
                 village: "",
                 district: "",
@@ -71,65 +67,97 @@ module.exports.signup = async (req, res) => {
             await farmer.save();
         }
 
-        // Automatic Login After Signup
-
+        // Automatic login after signup
         req.session.userId = user._id;
-        res.redirect("/");
+        req.flash("success", "Account created successfully! Welcome to Krushi Advisor.");
+        req.session.save((err) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send("Session error");
+            }
+
+            return res.redirect("/");
+        });
 
     } catch (err) {
         console.log(err);
-        res.status(500).send("Something went wrong");
+        req.flash("error", "Signup failed. Please try again.");
+        return res.redirect("/signup");
     }
 };
 
 // Login Page
-
 module.exports.loginForm = (req, res) => {
     res.render("users/login");
 };
 
-
+// Login
 module.exports.login = async (req, res) => {
     try {
-        const {email,password} = req.body;
-        const user = await User.findOne({email});
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(400).send(
-                "Invalid email or password"
-            );
+            req.flash("error", "Invalid email or password.");
+            return res.redirect("/login");
         }
 
-        const isPasswordCorrect =await bcrypt.compare(password,user.password);
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+        );
 
         if (!isPasswordCorrect) {
-            return res.status(400).send(
-                "Invalid email or password"
-            );
+            req.flash("error", "Invalid email or password.");
+            return res.redirect("/login");
         }
 
         req.session.userId = user._id;
-        res.redirect("/");
+        req.flash("success", "Login successful! Welcome back.");
+        req.session.save((err) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send("Session error");
+            }
+
+            return res.redirect("/");
+        });
 
     } catch (err) {
         console.log(err);
-        res.status(500).send(
-            "Something went wrong"
-        );
+        req.flash("error", "Something went wrong during login.");
+        return res.redirect("/login");
     }
 };
 
-
 // Logout
-
-module.exports.logout = (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).send(
-                "Logout failed"
-            );
+module.exports.logout = (req, res, next) => {
+    req.flash("success", "Logout successful!");
+    delete req.session.userId;
+    req.session.save((saveErr) => {
+        if (saveErr) {
+            console.log(saveErr);
+            return next(saveErr);
         }
 
-        res.redirect("/");
+    
+        req.session.regenerate((err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+
+            // New session madhye flash message set kara
+            req.flash("success", "Logout successful!");
+
+            req.session.save((finalErr) => {
+                if (finalErr) {
+                    console.log(finalErr);
+                    return next(finalErr);
+                }
+
+                return res.redirect("/");
+            });
+        });
     });
 };

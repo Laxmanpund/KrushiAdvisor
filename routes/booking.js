@@ -39,12 +39,38 @@ router.post(
     bookingController.acceptBooking
 );
 
+// Accept Booking
+
+router.post(
+    "/advisor/bookings/:id/accept",
+    isAdvisor,
+    bookingController.acceptBooking
+);
+
+
+// Reject Booking
+
+router.post(
+    "/advisor/bookings/:id/reject",
+    isAdvisor,
+    bookingController.rejectBooking
+);
+
+
+// Complete Booking
+router.post(
+    "/advisor/bookings/:id/complete",
+    isAdvisor,
+    bookingController.completeBooking
+);
+
 // Reject Booking
 router.post(
     "/advisor/bookings/:id/reject",
     isAdvisor,
     bookingController.rejectBooking
 );
+
 
 
 module.exports = router;

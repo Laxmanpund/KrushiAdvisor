@@ -1,0 +1,59 @@
+.rating-wrapper {
+    margin-top: 8px;
+}
+
+.rating-title {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    width: fit-content;
+    gap: 3px;
+}
+
+.star-rating input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.star-rating label {
+    font-size: 2.2rem;
+    color: #b0b0b0;
+    cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.star-rating label:hover {
+    transform: scale(1.12);
+}
+
+/* Hover kelyavar stars yellow */
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5b82e;
+}
+
+/* Click kelelya rating che stars yellow */
+.star-rating input:checked ~ label {
+    color: #f5b82e;
+}
+
+/* Keyboard accessibility */
+.star-rating input:focus-visible + label {
+    outline: 2px solid #0d6efd;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+.rating-message {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+}

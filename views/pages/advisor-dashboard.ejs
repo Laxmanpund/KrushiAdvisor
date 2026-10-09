@@ -218,24 +218,44 @@
                                     <% } %>
 
                                     <!-- Action Buttons -->
-                                    <% if (booking.status === "pending") { %>
-                                        <div class="d-flex gap-2 mt-4">
-                                            <form action="/advisor/bookings/<%= booking._id %>/accept" method="POST" class="flex-grow-1">
-                                                <button type="submit" class="btn btn-success w-100">
-                                                    <i class="fa-solid fa-check"></i>
-                                                    Accept
-                                                </button>
-                                            </form>
+                                   <% if (booking.status === "pending") { %>
 
-                                            <form action="/advisor/bookings/<%= booking._id %>/reject" method="POST" class="flex-grow-1">
-                                                <button type="submit" class="btn btn-outline-danger w-100">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                    Reject
-                                                </button>
-                                            </form>
+                                   <!-- Accept / Reject -->
+
+                                    <div class="d-flex gap-2 mt-4">
+                                      <form action="/advisor/bookings/<%= booking._id %>/accept" method="POST" class="flex-grow-1">
+                                            <button type="submit" class="btn btn-success w-100">
+                                               <i class="fa-solid fa-check"></i>
+                                                Accept
+                                           </button>
+                                       </form>
+
+                                        <form action="/advisor/bookings/<%= booking._id %>/reject" method="POST" class="flex-grow-1">
+                                           <button type="submit" class="btn btn-outline-danger w-100" >
+                                                <i class="fa-solid fa-xmark"></i>
+                                                Reject
+                                            </button>
+                                        </form>
+                                   </div>
+
+                                   <% } else if (booking.status === "accepted") { %>
+
+                                    <form action="/advisor/bookings/<%= booking._id %>/complete" method="POST"mclass="mt-4">
+                                       <button type="submit" class="btn btn-primary w-100">
+                                           <i class="fa-solid fa-circle-check"></i>
+                                            Consultation पूर्ण झाली
+                                        </button>
+                                   </form>
+
+                                    <% } else if (booking.status === "completed") { %>
+
+                                        <div class="alert alert-success mt-4 mb-0">
+                                           <i class="fa-solid fa-circle-check"></i>
+                                            Consultation पूर्ण झाली.
                                         </div>
 
                                     <% } %>
+                                    
                                 </div>
 
                             </div>

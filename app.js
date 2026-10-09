@@ -12,6 +12,7 @@ const userRoutes = require("./routes/user");
 const dashboardRoutes = require("./routes/dashboard");
 const profileRoutes = require("./routes/profile");
 const bookingRoutes = require("./routes/booking");
+const reviewRoutes = require("./routes/review");
 
 const methodOverride = require("method-override");
 const session = require("express-session");
@@ -53,17 +54,28 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));
+
 app.use(flash());
 
 app.use(async (req, res, next) => {
-    if (req.session.userId) {
-        const user = await User.findById(req.session.userId);
-        res.locals.currentUser = user;
-    } else {
-        res.locals.currentUser = null;
+
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+
+    try {
+        if (req.session.userId) {
+            const user = await User.findById(req.session.userId);
+            res.locals.currentUser = user || null;
+        } else {
+            res.locals.currentUser = null;
+        }
+
+        next();
+    } catch (err) {
+        next(err);
     }
-    next();
 });
+
 
 
 app.get("/", (req, res) => {
@@ -78,6 +90,7 @@ app.use("/", userRoutes);
 app.use("/", dashboardRoutes);
 app.use("/", profileRoutes);
 app.use("/", bookingRoutes);
+app.use("/", reviewRoutes);
 
 app.get("/about", (req, res) => {
     res.render("pages/about");

@@ -1,3 +1,4 @@
+
 <% layout("/layouts/boilerplate") %>
 
 <section class="advisor-profile-section">
@@ -12,11 +13,13 @@
         </div>
 
         <div class="advisor-profile-header">
+
             <div class="advisor-profile-photo">
                 <i class="fa-solid fa-user"></i>
             </div>
 
             <div class="advisor-profile-main">
+
                 <% if (advisor.isAvailable) { %>
                     <span class="profile-status">
                         <i class="fa-solid fa-circle"></i>
@@ -30,8 +33,9 @@
                 <% } %>
 
                 <h1><%= advisor.name %></h1>
-                <p class="profile-qualification"><%= advisor.qualification %></p>
-
+                <p class="profile-qualification">
+                    <%= advisor.qualification %>
+                </p>
 
                 <div class="profile-meta">
                     <span>
@@ -48,36 +52,49 @@
 
             <div class="profile-book">
                 <div class="profile-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <strong><%= advisor.rating %></strong>
-                    <span>अभिप्राय</span>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <strong>
+                        <%= Number(advisor.rating || 0).toFixed(1) %>
+                    </strong>
+                    <span><%= reviews.length %> अभिप्राय</span>
                 </div>
 
-                <strong class="profile-fee">₹<%= advisor.consultationFee %></strong>
+                <strong class="profile-fee">
+                    ₹<%= advisor.consultationFee %>
+                </strong>
+
                 <span class="fee-label">प्रति सल्ला</span>
 
                 <% if (advisor.isAvailable) { %>
-                    <a href="/advisors/<%= advisor._id %>/book" class="btn btn-success">
+                    <a
+                        href="/advisors/<%= advisor._id %>/book"
+                        class="btn btn-success"
+                    >
                         सल्ला बुक करा
                         <i class="fa-solid fa-calendar-check"></i>
                     </a>
                 <% } else { %>
-                    <button class="btn btn-secondary" disabled>सध्या उपलब्ध नाही</button>
+                    <button class="btn btn-secondary" disabled>
+                        सध्या उपलब्ध नाही
+                    </button>
                 <% } %>
             </div>
         </div>
 
         <div class="row g-4 mt-1">
+
             <div class="col-lg-8">
 
+                <!-- About -->
                 <div class="profile-info-card">
                     <h2>
                         <i class="fa-solid fa-user"></i>
                         सल्लागाराबद्दल
                     </h2>
-                    <p><%= advisor.about %></p>
+                    <p><%= advisor.about || "माहिती उपलब्ध नाही." %></p>
                 </div>
 
+                <!-- Expertise -->
                 <div class="profile-info-card">
                     <h2>
                         <i class="fa-solid fa-lightbulb"></i>
@@ -85,13 +102,17 @@
                     </h2>
 
                     <div class="profile-tags">
-                        <% advisor.expertise.forEach(skill => { %>
-                            <span><%= skill %></span>
-                        <% }) %>
+                        <% if (advisor.expertise && advisor.expertise.length) { %>
+                            <% advisor.expertise.forEach(skill => { %>
+                                <span><%= skill %></span>
+                            <% }) %>
+                        <% } else { %>
+                            <p>कौशल्याची माहिती उपलब्ध नाही.</p>
+                        <% } %>
                     </div>
                 </div>
 
-
+                <!-- Experience -->
                 <div class="profile-info-card">
                     <h2>
                         <i class="fa-solid fa-briefcase"></i>
@@ -100,46 +121,122 @@
 
                     <div class="experience-item">
                         <strong>कृषी सल्लागार</strong>
-                        <span><%= advisor.experience %> वर्षांचा अनुभव</span>
-                        <p><%= advisor.experienceDescription %></p>
+                        <span>
+                            <%= advisor.experience %> वर्षांचा अनुभव
+                        </span>
+                        <p>
+                            <%= advisor.experienceDescription || "अनुभवाची अधिक माहिती उपलब्ध नाही." %>
+                        </p>
                     </div>
                 </div>
 
+                <!-- Actual Reviews -->
                 <div class="profile-info-card">
+
                     <div class="review-heading">
                         <h2>
-                            <i class="fa-solid fa-star"></i>
-                            अभिप्राय
+                            <i class="fa-solid fa-star text-warning"></i>
+                            शेतकऱ्यांचे अभिप्राय
                         </h2>
-                        <span><%= advisor.rating %> / 5</span>
+
+                        <span>
+                            <%= Number(advisor.rating || 0).toFixed(1) %> / 5
+                        </span>
                     </div>
 
-                    <div class="review">
-                        <div class="review-user">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
+                    <p class="text-muted">
+                        एकूण <%= reviews.length %> अभिप्राय
+                    </p>
 
-                        <div>
-                            <strong>शेतकरी</strong>
+                    <% if (!reviews.length) { %>
 
-                            <div class="review-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
+                        <div class="text-center py-4">
+                            <i class="fa-regular fa-comment-dots fs-1 text-muted"></i>
 
-                            <p>
-                                सल्लागाराची माहिती आणि मार्गदर्शन
-                                उपयुक्त असल्याचे अभिप्राय.
+                            <p class="text-muted mt-3 mb-0">
+                                या सल्लागारासाठी अजून कोणताही अभिप्राय नाही.
                             </p>
                         </div>
-                    </div>
+
+                    <% } else { %>
+
+                        <% reviews.forEach(review => { %>
+
+                            <div class="review d-flex align-items-start gap-3">
+
+                                <div class="review-user flex-shrink-0">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <div class="flex-grow-1">
+
+                                    <strong>
+                                        <%= review.farmer && review.farmer.name
+                                            ? review.farmer.name
+                                            : "शेतकरी" %>
+                                    </strong>
+
+                                    <div
+                                        class="review-stars mt-1"
+                                        aria-label="<%= review.rating %> out of 5 stars"
+                                    >
+                                        <% for (let i = 1; i <= 5; i++) { %>
+                                            <% if (i <= review.rating) { %>
+                                                <i class="fa-solid fa-star text-warning"></i>
+                                            <% } else { %>
+                                                <i class="fa-regular fa-star text-warning"></i>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+
+                                    <p class="mt-2 mb-1">
+                                        <%= review.comment %>
+                                    </p>
+
+                                    <small class="text-muted">
+                                        <%= new Date(review.createdAt).toLocaleDateString("mr-IN") %>
+                                    </small>
+
+                                    <!-- Delete button: only review owner -->
+                                    <% if (
+                                        currentUser &&
+                                        currentUser.role === "farmer" &&
+                                        review.farmer &&
+                                        review.farmer.user &&
+                                        review.farmer.user._id.toString() === currentUser._id.toString()
+                                    ) { %>
+
+                                        <form
+                                            action="/reviews/<%= review._id %>/delete"
+                                            method="POST"
+                                            class="mt-2"
+                                            onsubmit="return confirm('Tumcha review delete karaycha aahe ka?');"
+                                        >
+                                            <button
+                                                type="submit"
+                                                class="btn btn-outline-danger btn-sm"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                                Delete Review
+                                            </button>
+                                        </form>
+
+                                    <% } %>
+
+                                </div>
+                            </div>
+
+                            <hr>
+
+                        <% }) %>
+
+                    <% } %>
                 </div>
             </div>
 
+            <!-- Sidebar -->
             <div class="col-lg-4">
+
                 <div class="profile-side-card">
                     <h3>
                         <i class="fa-solid fa-calendar-days"></i>
@@ -164,6 +261,7 @@
 
                 <div class="profile-side-card consultation-card">
                     <h3>कृषी मार्गदर्शन हवे आहे?</h3>
+
                     <p>
                         तुमच्या शेतीशी संबंधित प्रश्नांवर
                         चर्चा करण्यासाठी या सल्लागारासोबत
@@ -171,11 +269,22 @@
                     </p>
 
                     <% if (advisor.isAvailable) { %>
-                        <a href="/advisors/<%= advisor._id %>/book" class="btn btn-success w-100">सल्ला बुक करा</a>
+                        <a
+                            href="/advisors/<%= advisor._id %>/book"
+                            class="btn btn-success w-100"
+                        >
+                            सल्ला बुक करा
+                        </a>
                     <% } else { %>
-                        <button class="btn btn-secondary w-100" disabled>सध्या उपलब्ध नाही</button>
+                        <button
+                            class="btn btn-secondary w-100"
+                            disabled
+                        >
+                            सध्या उपलब्ध नाही
+                        </button>
                     <% } %>
                 </div>
+
             </div>
         </div>
     </div>

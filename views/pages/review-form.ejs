@@ -1,0 +1,129 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <div class="text-center mb-4">
+                        <i class="fa-solid fa-star text-warning fs-1"></i>
+                        <h2 class="fw-bold mt-3">सल्लागाराला अभिप्राय द्या</h2>
+                        <p class="text-muted">तुमचा अनुभव इतर शेतकऱ्यांसाठी उपयुक्त ठरू शकतो.</p>
+                    </div>
+
+
+                    <!-- Advisor Information -->
+
+                    <div class="bg-light rounded p-3 mb-4">
+                        <h5 class="fw-bold mb-2"><%= booking.advisor.name %></h5>
+
+                        <p class="text-muted mb-1">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <%= booking.advisor.qualification %>
+                        </p>
+
+                        <p class="text-muted mb-1">
+                            <i class="fa-solid fa-calendar"></i>
+                            <%= new Date(booking.date).toLocaleDateString("mr-IN") %>
+                        </p>
+
+                        <p class="text-muted mb-0">
+                            <i class="fa-solid fa-clock"></i>
+                            <%= booking.time %>
+                        </p>
+                    </div>
+
+
+                    <!-- Review Form -->
+
+                    <form action="/farmer/bookings/<%= booking._id %>/review" method="POST">
+                            
+                        <!-- Rating Section -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Rating</label>
+
+                            <div class="rating-wrapper">
+                                <p id="ratingTitle" class="rating-title">First rating:</p>
+
+                                <div class="star-rating" role="radiogroup" aria-label="Choose rating">
+                                    <% for (let i = 5; i >= 1; i--) { %>
+                                        <input type="radio" id="star-<%= i %>" name="rating" value="<%= i %>" required>
+                                        <label for="star-<%= i %>" title="<%= i %> stars"><i class="fa-solid fa-star"></i></label>
+                                    <% } %>
+                               </div>
+
+                               <p id="ratingMessage" class="rating-message">तुमचे Rating निवडण्यासाठी Star वर click करा.</p>
+                           </div>
+                        </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const ratingInputs = document.querySelectorAll(
+                                    '.star-rating input[name="rating"]'
+                                );
+
+                                const ratingTitle = document.getElementById("ratingTitle");
+                                const ratingMessage = document.getElementById("ratingMessage");
+
+                                const ratingLabels = {
+                                    1: "Poor",
+                                    2: "Average",
+                                    3: "Good",
+                                    4: "Very Good",
+                                    5: "Excellent"
+                                };
+
+                                ratingInputs.forEach(function (input) {
+                                    input.addEventListener("change", function () {
+                                        const rating = Number(this.value);
+                                        ratingTitle.textContent = `${rating}/5 — ${ratingLabels[rating]}`;
+                                        ratingMessage.textContent =`तुम्ही ${rating} Star Rating निवडले आहे.`;
+                                    });
+                                });
+                            });
+                        </script>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">तुमचा अभिप्राय</label>
+                            <textarea
+                                name="comment"
+                                class="form-control"
+                                rows="5"
+                                placeholder="सल्लागाराबद्दल तुमचा अनुभव लिहा..."
+                                required
+                            ></textarea>
+                        </div>
+
+
+                        <!-- Buttons -->
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                Review Submit करा
+                            </button>
+
+                            <a href="/farmer/dashboard" class="btn btn-outline-secondary">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                मागे जा
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

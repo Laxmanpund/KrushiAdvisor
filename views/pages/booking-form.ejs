@@ -61,7 +61,7 @@
                     <form action="/advisors/<%= advisor._id %>/book" method="POST">
                         <div class="mb-4">
                             <label class="form-label fw-semibold">सल्लामसलतीची तारीख</label>
-                            <input type="date" name="date" class="form-control" required>
+                            <input type="date" name="date" id="bookingDate" class="form-control" required>
                         </div>
 
                         <div class="mb-4">
@@ -108,3 +108,9 @@
 
     </div>
 </div>
+
+<script>
+    const dateInput =document.getElementById("bookingDate");
+    const today =new Date().toISOString().split("T")[0];
+    dateInput.min = today;
+</script>

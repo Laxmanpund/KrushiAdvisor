@@ -198,6 +198,18 @@
                                     <strong class="text-success fs-5">₹<%= booking.advisor.consultationFee %></strong>
                                 </div>
 
+                                <% if (booking.status === "completed") { %>
+
+                                    <div class="mt-4">
+
+                                       <a href="/farmer/bookings/<%= booking._id %>/review" class="btn btn-warning w-100">
+                                            <i class="fa-solid fa-star"></i>
+                                            Review द्या
+                                        </a>
+
+                                    </div>
+                                <% } %>
+
                             </div>
                         </div>
                     </div>

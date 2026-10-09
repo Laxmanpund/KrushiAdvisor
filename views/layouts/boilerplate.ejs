@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="/css/advisor.css">
     <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/review.css">
 </head>
 
 <body>
+
     <%- include("../includes/navbar.ejs") %>
 
-    <main><%- body %></main>
+    <div class="container mt-3">
+        <%- include("../includes/flash.ejs") %>
+        <%- body %>
+    </div>
 
     <%- include("../includes/footer.ejs") %>
 
