@@ -24,7 +24,6 @@ module.exports.farmerDashboard = async (req, res) => {
             date: 1
         });
 
-        // Render Farmer Dashboard
         res.render("pages/farmer-dashboard", {advisors,bookings});
 
     } catch (err) {

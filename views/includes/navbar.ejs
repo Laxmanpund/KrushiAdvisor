@@ -1,86 +1,139 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg ka-navbar sticky-top">
+    <div class="container">
 
-        <a class="navbar-brand" href="/">🌾 Krushi Advisor</a>
+        <a class="navbar-brand ka-brand" href="/">
+            <span class="ka-brand-icon">
+                <i class="fa-solid fa-seedling"></i>
+            </span>
+            <span class="ka-brand-text">
+                Krushi <span>Advisor</span>
+                <small>Smart Farming • Better Decisions</small>
+            </span>
+        </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button
+            class="navbar-toggler ka-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">मुख्यपृष्ठ</a>
-                </li>
+            
+           <ul class="navbar-nav mx-auto ka-nav-links">
+               <li class="nav-item">
+                    <a class="nav-link <%= currentPath === '/' ? 'active' : '' %>" href="/">
+                        <i class="fa-solid fa-house"></i>
+                        मुख्यपृष्ठ
+                    </a>
+               </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/crops">पिके</a>
-                </li>
+               <li class="nav-item">
+                   <a class="nav-link <%= currentPath === '/crops' ? 'active' : '' %>" href="/crops">
+                       <i class="fa-solid fa-wheat-awn"></i>
+                        पिके
+                    </a>
+               </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/diseases">रोग व किडी</a>
-                </li>
+               <li class="nav-item">
+                   <a class="nav-link <%= currentPath === '/diseases' ? 'active' : '' %>" href="/diseases">
+                        <i class="fa-solid fa-bug"></i>
+                        रोग व किडी
+                    </a>
+               </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/advisors">कृषी सल्लागार</a>
-                </li>
+               <li class="nav-item">
+                   <a class="nav-link <%= currentPath === '/advisors' ? 'active' : '' %>" href="/advisors">
+                       <i class="fa-solid fa-user-doctor"></i>
+                        कृषी सल्लागार
+                    </a>
+               </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">आमच्याबद्दल</a>
-                </li>
+               <li class="nav-item">
+                   <a class="nav-link <%= currentPath === '/about' ? 'active' : '' %>" href="/about">
+                       आमच्याबद्दल
+                    </a>
+               </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">संपर्क</a>
+               <li class="nav-item">
+                   <a class="nav-link <%= currentPath === '/contact' ? 'active' : '' %>" href="/contact">
+                        संपर्क
+                    </a>
                 </li>
             </ul>
 
-            <!-- Authentication Section -->
+            <div class="ka-auth">
+                <% if (currentUser) { %>
+                    <div class="dropdown">
+                        <button
+                            class="btn ka-user-btn dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
 
-            <% if (currentUser) { %>
-                <div class="d-flex align-items-center gap-2">
-                    <span class="text-dark">
-                        <i class="fa-solid fa-user text-success"></i>
-                        <%= currentUser.name %>
-                    </span>
+                            <span class="ka-user-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
 
-                    <% if (currentUser.role === "farmer") { %>
-                        <a href="/farmer/dashboard" class="btn btn-outline-success">Dashboard</a>
-                    <% } %>
+                            <span class="ka-user-name">
+                                <%= currentUser.name %>
+                            </span>
+                        </button>
 
+                        <ul class="dropdown-menu dropdown-menu-end ka-dropdown">
 
-                    <% if (currentUser.role === "advisor") { %>
-                        <a href="/advisor/dashboard" class="btn btn-outline-success">Dashboard</a>
-                    <% } %>
+                            <% if (currentUser.role === "farmer") { %>
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="/farmer/dashboard">
+                                        <i class="fa-solid fa-gauge-high"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                            <% } %>
 
-            
-                   <a href="/profile" class="btn btn-outline-success">
-                        <i class="fa-solid fa-user"></i>
-                         Profile
-                   </a>
+                            <% if (currentUser.role === "advisor") { %>
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="/advisor/dashboard">
+                                        <i class="fa-solid fa-gauge-high"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                            <% } %>
 
-                    <a href="/logout" class="btn btn-success">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Logout
-                    </a>
-                </div>
+                            <li>
+                                <a class="dropdown-item" href="/profile">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    Profile
+                                </a>
+                            </li>
 
-            <% } else { %>
-                <!-- Logged Out -->
-                <div class="d-flex gap-2">
-                    <a href="/login" class="btn btn-outline-success">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        Login
-                    </a>
+                            <li><hr class="dropdown-divider"></li>
 
-                    <a href="/signup" class="btn btn-success">
+                            <li>
+                                <a class="dropdown-item ka-logout"
+                                   href="/logout">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                <% } else { %>
+                    <a href="/login" class="btn ka-login-btn">Login</a>
+                    <a href="/signup" class="btn ka-signup-btn">
                         <i class="fa-solid fa-user-plus"></i>
                         Signup
                     </a>
-                </div>
+                <% } %>
+            </div>
 
-            <% } %>
         </div>
-
     </div>
 </nav>

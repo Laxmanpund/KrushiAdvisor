@@ -29,21 +29,23 @@ const app = express();
 
 const MONGO_URL = process.env.ATLAS_URL;
 
-async function main() {
-    if (!MONGO_URL) {
-        throw new Error("ATLAS_URL is missing from .env");
-    }
-
-    await mongoose.connect(MONGO_URL);
+if (!MONGO_URL) {
+    throw new Error("ATLAS_URL is missing from environment variables");
 }
 
-main()
-    .then(() => {
-        console.log("Connected to MongoDB Atlas");
-    })
-    .catch((err) => {
-        console.error("MongoDB connection failed:", err.message);
-    });
+if (!process.env.SECRET) {
+    throw new Error("SECRET is missing from environment variables");
+}
+
+async function main() {
+    await mongoose.connect(MONGO_URL);
+    console.log("Connected to MongoDB Atlas");
+}
+
+main().catch((err) => {
+    console.error("MongoDB connection failed:", err);
+    process.exit(1);
+});
 
 
 
@@ -72,6 +74,7 @@ app.use(async (req, res, next) => {
 
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currentPath = req.path;
 
     try {
         if (req.session.userId) {
@@ -117,7 +120,7 @@ app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
 });
 
-// Central Error Handler
+// Error Handler
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || "Something went wrong!";
@@ -130,6 +133,9 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(7426, () => {
-    console.log("server is listening port 7426");
+
+const PORT = process.env.PORT || 7426;
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Krushi Advisor running on port ${PORT}`);
 });
