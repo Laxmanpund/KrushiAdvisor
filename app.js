@@ -39,7 +39,7 @@ if (!process.env.SECRET) {
 
 async function main() {
     await mongoose.connect(MONGO_URL);
-    console.log("Connected to MongoDB Atlas");
+    console.log("Connected to MongoDB");
 }
 
 main().catch((err) => {
