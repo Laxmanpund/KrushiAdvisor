@@ -1,4 +1,3 @@
-
 const User = require("../models/user");
 const Advisor = require("../models/advisor");
 const Farmer = require("../models/farmer");
@@ -91,44 +90,53 @@ module.exports.loginForm = (req, res) => {
     res.render("users/login");
 };
 
-// Login
+// Login Page
 module.exports.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const email = req.body.email?.trim().toLowerCase();
+        const password = req.body.password;
+
+        if (!email || !password) {
+            req.flash("error", "Email आणि password आवश्यक आहेत.");
+            return res.redirect("/login");
+        }
+
         const user = await User.findOne({ email });
 
         if (!user) {
+            console.log("Login failed: User not found:", email);
             req.flash("error", "Invalid email or password.");
             return res.redirect("/login");
         }
 
+        // Password bcrypt hash स्वरूपात असणे आवश्यक आहे
         const isPasswordCorrect = await bcrypt.compare(
             password,
             user.password
         );
 
         if (!isPasswordCorrect) {
+            console.log("Login failed: Password mismatch for:", email);
             req.flash("error", "Invalid email or password.");
             return res.redirect("/login");
         }
 
         req.session.userId = user._id;
-        req.flash("success", "Login successful! Welcome back.");
-        req.session.save((err) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).send("Session error");
-            }
 
+        req.flash("success", "Login successful! Welcome back.");
+
+        req.session.save((err) => {
+            if (err) return res.status(500).send("Session error");
             return res.redirect("/");
         });
 
     } catch (err) {
-        console.log(err);
-        req.flash("error", "Something went wrong during login.");
+        console.error("Login error:", err);
+        req.flash("error", "Login करताना समस्या आली.");
         return res.redirect("/login");
     }
 };
+
 
 // Logout
 module.exports.logout = (req, res, next) => {

@@ -5,7 +5,9 @@ const Crop = require("../models/crop");
 const Disease = require("../models/disease");
 const Advisor = require("../models/advisor");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/krushi-advisor";
+require("dotenv").config();
+
+const MONGO_URL = process.env.ATLAS_URL;
 
 const crops = [
     {
@@ -190,14 +192,18 @@ const diseases = [
 
 
 async function main() {
+    if (!MONGO_URL) {
+        throw new Error("ATLAS_URL is missing from .env");
+    }
+
     await mongoose.connect(MONGO_URL);
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB Atlas");
 
     await Crop.deleteMany({});
     await Disease.deleteMany({});
     await Advisor.deleteMany({});
 
-    // Only advisor users will be deleted.
+
     // Farmer/Admin users will remain safe.
     await User.deleteMany({
         role: "advisor"

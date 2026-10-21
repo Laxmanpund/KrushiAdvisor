@@ -1,9 +1,14 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 
 const User = require("./models/user");
+
+const ExpressError = require("./utils/ExpressError");
+
 
 const advisorRoutes = require("./routes/advisor");
 const cropRoutes = require("./routes/crop");
@@ -21,19 +26,25 @@ const flash = require("connect-flash");
 const app = express();
 
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/krushi-advisor";
+
+const MONGO_URL = process.env.ATLAS_URL;
 
 async function main() {
+    if (!MONGO_URL) {
+        throw new Error("ATLAS_URL is missing from .env");
+    }
+
     await mongoose.connect(MONGO_URL);
 }
 
 main()
     .then(() => {
-        console.log("Connected to MongoDB");
+        console.log("Connected to MongoDB Atlas");
     })
     .catch((err) => {
-        console.log(err);
+        console.error("MongoDB connection failed:", err.message);
     });
+
 
 
 app.engine("ejs", ejsMate);
@@ -48,7 +59,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 const sessionOptions = {
-    secret: "krushi-advisor-secret",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
 };
@@ -98,6 +109,25 @@ app.get("/about", (req, res) => {
 
 app.get("/contact", (req, res) => {
     res.render("pages/contact");
+});
+
+
+ // 404 - Page Not Found
+app.use((req, res, next) => {
+    next(new ExpressError(404, "Page Not Found"));
+});
+
+// Central Error Handler
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Something went wrong!";
+
+    console.error(err);
+
+    res.status(statusCode).render("error", {
+        statusCode,
+        message
+    });
 });
 
 app.listen(7426, () => {
